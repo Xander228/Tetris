@@ -4,27 +4,35 @@ import java.awt.event.*;
 
 public class TetrisFrame extends JFrame {
     private TetrisBoard tetrisBoard;
+    private PiecePanel piecePanel;
     private ScorePanel scorePanel;
-
     public TetrisFrame() {
         // Set up the frame properties
         setTitle("Tetris");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setSize(Constants.FRAME_WIDTH, 
                 Constants.FRAME_HEIGHT);
-
+        
         // Create an instance of the TetrisBoard class
         tetrisBoard = new TetrisBoard();
 
         // Create an instance of the ScorePanel class
+        piecePanel = new PiecePanel();
+
+        // Create an instance of the ScorePanel class
         scorePanel = new ScorePanel();
-
+        
+        
         // Add the TetrisBoard and ScorePanel to the frame
+        
         add(tetrisBoard);
-        add(scorePanel, BorderLayout.EAST);
-
+        add(scorePanel, BorderLayout.NORTH);
+        add(piecePanel, BorderLayout.EAST);
+        
+        
         // Set up a Timer for the game loop
-        Timer timer = new Timer(1000, new ActionListener() {
+        Timer timer = new Timer(500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Update the game logic
