@@ -11,8 +11,6 @@ public class TetrisFrame extends JFrame {
         setTitle("Tetris");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setSize(Constants.FRAME_WIDTH, 
-                Constants.FRAME_HEIGHT);
         
         // Create an instance of the TetrisBoard class
         tetrisBoard = new TetrisBoard();
@@ -29,7 +27,7 @@ public class TetrisFrame extends JFrame {
         add(tetrisBoard);
         add(scorePanel, BorderLayout.NORTH);
         add(piecePanel, BorderLayout.EAST);
-        
+        pack();
         
         // Set up a Timer for the game loop
         Timer timer = new Timer(500, new ActionListener() {
