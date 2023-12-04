@@ -17,7 +17,7 @@ public class TetrisBoard extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g); 
         this.drawGrid(g);
-        //this.drawLogo(g);
+        Display.drawSquare(50, 50, Color.RED, g);
     }
     
     public void update() {
