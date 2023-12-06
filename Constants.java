@@ -8,7 +8,7 @@ public class Constants
     static int BOARD_COLS = 10;
     static int BOARD_ROWS = 20;
     static int PIECE_SIZE = 40;
-    static int PIECE_EDGE_WIDTH = PIECE_SIZE / 10;
+    static int PIECE_EDGE_WIDTH = PIECE_SIZE / 7;
     static int BOARD_WIDTH = BOARD_COLS * PIECE_SIZE;
     static int BOARD_HEIGHT = BOARD_ROWS * PIECE_SIZE;
     static int PIECE_PANEL_WIDTH = 200;

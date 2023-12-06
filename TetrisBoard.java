@@ -4,33 +4,39 @@ import java.awt.event.*;
 
 public class TetrisBoard extends JPanel {
     private JLabel boardLabel;
+    int j = 0;
+    public static int i = 0;
     public TetrisBoard() {
         // Initialize components, set layout
         setPreferredSize( new Dimension(Constants.BOARD_WIDTH, 
                                         Constants.BOARD_HEIGHT));
-        boardLabel = new JLabel("Board");
         setBackground(new Color((int)0x21477d).brighter());
-        add(boardLabel);
     }
     
     @Override 
     public void paintComponent(Graphics g) {
         super.paintComponent(g); 
         this.drawGrid(g);
-        Display.drawSquare(50, 50, Color.RED, g);
+        Display.drawSquare(0, 40, Color.RED, g);
+        Display.drawSquare(40, 40, Color.RED, g);
+        Display.drawSquare(80, 40, Color.RED, g);
+        Display.drawSquare(40, 0, Color.RED, g);
     }
     
     public void update() {
+        j++;
+        i = (int)(40 * Math.sin(j/10.0));
     }
     
     public void drawBoard(Graphics g) {
 
     }
-    
+
     public void drawGrid(Graphics g) {
-        g.setColor(new Color((int)0x21477d).brighter().brighter());
-        for(int i = 0; i < Constants.BOARD_COLS / 2; i++) {
-            g.fillRect(i * Constants.PIECE_SIZE * 2, 0, Constants.PIECE_SIZE, Constants.BOARD_HEIGHT);
+        for(int i = 0; i < Constants.BOARD_COLS; i++) {
+            for(int j = 0; j < Constants.BOARD_ROWS; j++) {
+                Display.drawSquare(i * Constants.PIECE_SIZE, j * Constants.PIECE_SIZE, new Color((int)0x212121), g);
+            }   
         }
     }
     
