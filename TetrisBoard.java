@@ -3,29 +3,35 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class TetrisBoard extends JPanel {
-    private JLabel boardLabel;
+    private JSlider boardSlider;
     int j = 0;
     public static int i = 0;
     public TetrisBoard() {
         // Initialize components, set layout
         setPreferredSize( new Dimension(Constants.BOARD_WIDTH, 
                                         Constants.BOARD_HEIGHT));
-        setBackground(new Color((int)0x21477d).brighter());
+        boardSlider = new JSlider();
+        add(boardSlider);
     }
     
     @Override 
     public void paintComponent(Graphics g) {
         super.paintComponent(g); 
+        i = 10;
         this.drawGrid(g);
+        i = j;
         Display.drawSquare(0, 40, Color.RED, g);
-        Display.drawSquare(40, 40, Color.RED, g);
-        Display.drawSquare(80, 40, Color.RED, g);
-        Display.drawSquare(40, 0, Color.RED, g);
+        Display.drawSquare(40, 40, Color.ORANGE, g);
+        Display.drawSquare(80, 40, Color.YELLOW, g);
+        Display.drawSquare(120, 40, Color.GREEN, g);
+        Display.drawSquare(160, 40, Color.CYAN, g);
+        Display.drawSquare(200, 40, Color.BLUE, g);
+        Display.drawSquare(240, 40, Color.MAGENTA, g);
     }
     
     public void update() {
-        j++;
-        i = (int)(40 * Math.sin(j/10.0));
+        
+        j = boardSlider.getValue();
     }
     
     public void drawBoard(Graphics g) {

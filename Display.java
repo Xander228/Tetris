@@ -13,10 +13,10 @@ public class Display
         int colorScale = 0;
         switch(side){
             case 1:
-                colorScale = 2 * TetrisBoard.i;
+                colorScale = 4 * TetrisBoard.i;
                 break;
             case 2:
-                colorScale = TetrisBoard.i;
+                colorScale = 2 * TetrisBoard.i;
                 break;
             case 3:
                 colorScale = -TetrisBoard.i;
@@ -31,7 +31,8 @@ public class Display
         return new Color(r, g, b);
     }
     
-    public static void drawSquare(int x, int y, Color color, Graphics g) {
+    public static void drawSquare(i
+    nt x, int y, Color color, Graphics g) {
         //draw main square
         g.setColor(color);
         g.fillRect(x, y, Constants.PIECE_SIZE, Constants.PIECE_SIZE);
