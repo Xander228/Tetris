@@ -20,13 +20,13 @@ public class TetrisBoard extends JPanel {
         i = 10;
         this.drawGrid(g);
         i = j;
-        Display.drawSquare(0, 40, Color.RED, g);
-        Display.drawSquare(40, 40, Color.ORANGE, g);
-        Display.drawSquare(80, 40, Color.YELLOW, g);
-        Display.drawSquare(120, 40, Color.GREEN, g);
-        Display.drawSquare(160, 40, Color.CYAN, g);
-        Display.drawSquare(200, 40, Color.BLUE, g);
-        Display.drawSquare(240, 40, Color.MAGENTA, g);
+        Square.draw(0, 40, 1, g);
+        Square.draw(40, 40, 2, g);
+        Square.draw(80, 40, 3, g);
+        Square.draw(120, 40, 4, g);
+        Square.draw(160, 40, 5, g);
+        Square.draw(200, 40, 6, g);
+        Square.draw(240, 40, 7, g);
     }
     
     public void update() {
@@ -41,7 +41,7 @@ public class TetrisBoard extends JPanel {
     public void drawGrid(Graphics g) {
         for(int i = 0; i < Constants.BOARD_COLS; i++) {
             for(int j = 0; j < Constants.BOARD_ROWS; j++) {
-                Display.drawSquare(i * Constants.PIECE_SIZE, j * Constants.PIECE_SIZE, new Color((int)0x212121), g);
+                Square.draw(i * Constants.PIECE_SIZE, j * Constants.PIECE_SIZE, 0, g);
             }   
         }
     }
