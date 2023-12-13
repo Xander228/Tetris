@@ -9,7 +9,7 @@ public class PiecePanel extends JPanel {
         // Initialize components, set layout, etc.
         setPreferredSize( new Dimension(Constants.PIECE_PANEL_WIDTH, 
                                         Constants.BOARD_HEIGHT));
-        setBorder(Constants.BLACK_BORDER);
+        setBackground(Constants.COLORS[0][0]);
         pieceLabel = new JLabel("Piece");
         add(pieceLabel);
     }
