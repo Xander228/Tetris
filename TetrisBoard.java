@@ -3,35 +3,28 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class TetrisBoard extends JPanel {
-    private JSlider boardSlider;
-    int j = 0;
-    public static int i = 0;
+    Tetromino tetromino;
     public TetrisBoard() {
         // Initialize components, set layout
         setPreferredSize( new Dimension(Constants.BOARD_WIDTH, 
                                         Constants.BOARD_HEIGHT));
-        boardSlider = new JSlider();
-        add(boardSlider);
+        //setBorder(BorderFactory.createMatteBorder(1, 10, 1, 1, Constants.ACCENT_COLOR));
+
     }
     
     @Override 
     public void paintComponent(Graphics g) {
         super.paintComponent(g); 
-        i = 10;
         this.drawGrid(g);
-        i = j;
-        Square.draw(0, 40, 1, g);
-        Square.draw(40, 40, 2, g);
-        Square.draw(80, 40, 3, g);
-        Square.draw(120, 40, 4, g);
-        Square.draw(160, 40, 5, g);
-        Square.draw(200, 40, 6, g);
-        Square.draw(240, 40, 7, g);
+        for(int i = 0; i < 7; i++){
+            tetromino = new Tetromino(i,0,i*2);
+            tetromino.draw(g);
+        }
+        
     }
     
     public void update() {
-        
-        j = boardSlider.getValue();
+
     }
     
     public void drawBoard(Graphics g) {
@@ -41,7 +34,7 @@ public class TetrisBoard extends JPanel {
     public void drawGrid(Graphics g) {
         for(int i = 0; i < Constants.BOARD_COLS; i++) {
             for(int j = 0; j < Constants.BOARD_ROWS; j++) {
-                Square.draw(i * Constants.PIECE_SIZE, j * Constants.PIECE_SIZE, 0, g);
+                Square.draw(i, j, 0, g);
             }   
         }
     }

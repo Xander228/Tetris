@@ -2,6 +2,8 @@
 comment0.target=ScorePanel
 comment1.params=
 comment1.target=ScorePanel()
-comment2.params=
-comment2.target=void\ updateScore()
-numComments=3
+comment2.params=key
+comment2.target=void\ handleKeyPress(int)
+comment3.params=
+comment3.target=void\ updateScore()
+numComments=4

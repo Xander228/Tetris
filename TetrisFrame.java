@@ -53,6 +53,7 @@ public class TetrisFrame extends JFrame {
             public void keyPressed(KeyEvent e) {
                 // Handle key presses for game controls (e.g., move left, move right, rotate)
                 tetrisBoard.handleKeyPress(e.getKeyCode());
+                scorePanel.handleKeyPress(e.getKeyCode());
             }
 
             @Override

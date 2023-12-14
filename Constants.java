@@ -15,6 +15,7 @@ public class Constants
     static int SCORE_PANEL_HEIGHT = 50;
     static int FRAME_WIDTH = BOARD_WIDTH + PIECE_PANEL_WIDTH;
     static int FRAME_HEIGHT = BOARD_HEIGHT + SCORE_PANEL_HEIGHT;
+    static Color ACCENT_COLOR = new Color((int)0x00ffff);
     static Color[][] COLORS = {
         {new Color((int)0x212121),new Color((int)0x393939),new Color((int)0x070707),new Color((int)0x171717),new Color((int)0x2f2f2f)},
         {new Color((int)0xff0000),new Color((int)0xff8888),new Color((int)0x950000),new Color((int)0xca0000),new Color((int)0xff4040)},
