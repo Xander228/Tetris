@@ -10,12 +10,11 @@ public class PiecePanel extends JPanel {
         // Initialize components, set layout, etc.
         setPreferredSize( new Dimension(Constants.PIECE_PANEL_WIDTH, 
                                         Constants.BOARD_HEIGHT));
-        setBorder(BorderFactory.createMatteBorder(0, 10, 0, 0, Constants.ACCENT_COLOR));
-        setBackground(Constants.COLORS[0][0]);
+        setLayout(new BorderLayout(0, 0));
         holdPanel = new HoldPanel();
         queuePanel = new QueuePanel();
-        add(holdPanel);
-        add(queuePanel);
+        add(holdPanel,BorderLayout.NORTH);
+        add(queuePanel,BorderLayout.SOUTH);
     }
 
     public void updateScore() {

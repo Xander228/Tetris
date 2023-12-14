@@ -72,7 +72,7 @@ public class Tetromino {
         for (int Y = 0; Y < 4; Y++) {
             for (int X = 0; X < 4; X++) {
                 if (tetrominos[pieceNum][Y][pieceRotation][X] == 0) continue;
-                Square.draw(X + pieceX, Y + pieceY, tetrominos[pieceNum][Y][pieceRotation][X], g);
+                Draw.square(X + pieceX, Y + pieceY, tetrominos[pieceNum][Y][pieceRotation][X], g);
             }
         }
     }

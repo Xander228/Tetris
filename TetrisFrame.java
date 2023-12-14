@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class TetrisFrame extends JFrame {
+    private JPanel mainPanel;
     private TetrisBoard tetrisBoard;
     private PiecePanel piecePanel;
     private ScorePanel scorePanel;
@@ -11,6 +12,11 @@ public class TetrisFrame extends JFrame {
         setTitle("Tetris");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
+        
+        
+        mainPanel = new JPanel();
+        mainPanel.setBackground(Constants.ACCENT_COLOR);
+        mainPanel.setLayout(new BorderLayout(10, 10));
         
         // Create an instance of the TetrisBoard class
         tetrisBoard = new TetrisBoard();
@@ -24,9 +30,11 @@ public class TetrisFrame extends JFrame {
         
         // Add the TetrisBoard and ScorePanel to the frame
         
-        add(tetrisBoard);
-        add(scorePanel, BorderLayout.NORTH);
-        add(piecePanel, BorderLayout.EAST);
+        mainPanel.add(tetrisBoard);
+        mainPanel.add(scorePanel, BorderLayout.NORTH);
+        mainPanel.add(piecePanel, BorderLayout.EAST);
+        
+        add(mainPanel);
         pack();
         
         // Set up a Timer for the game loop

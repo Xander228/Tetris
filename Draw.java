@@ -1,9 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Square
+public class Draw
 {
-    public static void draw(int x, int y, int color, Graphics g) {
+    public static void square(int x, int y, int color, Graphics g) {
         x = x * Constants.PIECE_SIZE;
         y = y * Constants.PIECE_SIZE;
         //draw main square

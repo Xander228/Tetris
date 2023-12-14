@@ -9,7 +9,6 @@ public class ScorePanel extends JPanel {
         // Initialize components, set layout, etc.
         setPreferredSize( new Dimension(Constants.FRAME_WIDTH, 
                                         Constants.SCORE_PANEL_HEIGHT));
-        setBorder(BorderFactory.createMatteBorder(0, 0, 10, 0, Constants.ACCENT_COLOR));
         //setBackground(Constants.COLORS[0][0]);
         scoreLabel = new JLabel("Score: 0");
         add(scoreLabel);

@@ -8,7 +8,6 @@ public class TetrisBoard extends JPanel {
         // Initialize components, set layout
         setPreferredSize( new Dimension(Constants.BOARD_WIDTH, 
                                         Constants.BOARD_HEIGHT));
-        //setBorder(BorderFactory.createMatteBorder(1, 10, 1, 1, Constants.ACCENT_COLOR));
 
     }
     
@@ -34,7 +33,7 @@ public class TetrisBoard extends JPanel {
     public void drawGrid(Graphics g) {
         for(int i = 0; i < Constants.BOARD_COLS; i++) {
             for(int j = 0; j < Constants.BOARD_ROWS; j++) {
-                Square.draw(i, j, 0, g);
+                Draw.square(i, j, 0, g);
             }   
         }
     }
@@ -64,6 +63,22 @@ public class TetrisBoard extends JPanel {
         }
     }
     public void handleKeyPress(int key){
-        
+        switch(key){
+            case 38:
+                
+                break;
+                
+            case 40:
+                
+                break;
+                
+            case 37:
+                
+                break;
+                
+            case 39:
+                
+                break;
+        }
     }
 }
