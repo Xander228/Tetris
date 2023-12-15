@@ -26,6 +26,11 @@ public class TetrisBoard extends JPanel {
     
     public void update() {
         repaint();
+        y++;
+        if(y > 10) {
+            y = 0;
+            
+        }
     }
     
     public void drawBoard(Graphics g) {
@@ -44,22 +49,22 @@ public class TetrisBoard extends JPanel {
         switch(key){ 
             case 37:
                 x--;
-                //repaint();
+                repaint();
                 break;
                 
             case 38:
                 y--;
-                //repaint();
+                repaint();
                 break;
                 
             case 39:
                 x++;
-                //repaint();
+                repaint();
                 break;
                 
             case 40:
                 y++;
-                //repaint();
+                repaint();
                 break;
         }
     }

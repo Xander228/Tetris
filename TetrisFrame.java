@@ -39,17 +39,17 @@ public class TetrisFrame extends JFrame {
         pack();
         
         // Set up a Timer for the game loop
-        Timer timer = new Timer(1, new ActionListener() {
+        Timer timer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Update the game logic
-                tetrisBoard.update();
+                //tetrisBoard.update();
 
                 // Update the score
                 scorePanel.updateScore();
 
                 // Repaint the board
-                tetrisBoard.repaint();
+                //tetrisBoard.repaint();
             }
         });
 
@@ -61,8 +61,8 @@ public class TetrisFrame extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 // Handle key presses for game controls (e.g., move left, move right, rotate)
-                tetrisBoard.handleKeyPress(e.getKeyCode());
-                scorePanel.handleKeyPress(e.getKeyCode());
+                //tetrisBoard.handleKeyPress(e.getKeyCode());
+                //scorePanel.handleKeyPress(e.getKeyCode());
             }
 
             @Override

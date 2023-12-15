@@ -4,6 +4,7 @@ import java.awt.event.*;
 
 public class ScorePanel extends JPanel {
     private JLabel scoreLabel;
+    int i = 0;
     int key = 0;
     public ScorePanel() {
         // Initialize components, set layout, etc.
@@ -19,7 +20,9 @@ public class ScorePanel extends JPanel {
     }
     
     public void updateScore() {
-        scoreLabel.setText("key: " + key);
+        i++;
+        scoreLabel.setText("Score: " + i);
+        //scoreLabel.setText("key: " + key);
     }
     
 }
