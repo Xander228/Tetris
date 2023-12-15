@@ -15,6 +15,7 @@ public class TetrisFrame extends JFrame {
         
         
         mainPanel = new JPanel();
+        mainPanel.setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10, Constants.ACCENT_COLOR));
         mainPanel.setBackground(Constants.ACCENT_COLOR);
         mainPanel.setLayout(new BorderLayout(10, 10));
         

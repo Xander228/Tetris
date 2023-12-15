@@ -19,7 +19,13 @@ public class TetrisBoard extends JPanel {
             tetromino = new Tetromino(i,0,i*2);
             tetromino.draw(g);
         }
-        
+        Draw.Square(0, 40, Color.RED, g);
+        Draw.Square(40, 40, Color.ORANGE, g);
+        Draw.Square(80, 40, Color.YELLOW, g);
+        Draw.Square(120, 40, Color.GREEN, g);
+        Draw.Square(160, 40, Color.CYAN, g);
+        Draw.Square(200, 40, Color.BLUE, g);
+        Draw.Square(240, 40, Color.MAGENTA, g);
     }
     
     public void update() {
