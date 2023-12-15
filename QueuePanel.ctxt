@@ -2,6 +2,8 @@
 comment0.target=QueuePanel
 comment1.params=
 comment1.target=QueuePanel()
-comment2.params=
-comment2.target=void\ updateScore()
-numComments=3
+comment2.params=g
+comment2.target=void\ paintComponent(java.awt.Graphics)
+comment3.params=
+comment3.target=void\ updateScore()
+numComments=4

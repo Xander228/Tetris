@@ -7,13 +7,19 @@ public class QueuePanel extends JPanel {
 
     public QueuePanel() {
         // Initialize components, set layout, etc.
-        setPreferredSize( new Dimension(Constants.PIECE_PANEL_WIDTH, 
-                                        Constants.BOARD_HEIGHT / 2));
         setBackground(Constants.COLORS[0][0]);
-        pieceLabel = new JLabel("Piece");
+        pieceLabel = new JLabel("QUEUE");
+        pieceLabel.setFont(new Font("Arial", Font.BOLD, 18));
         add(pieceLabel);
     }
 
+    @Override 
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g); 
+        Draw.header(g);
+
+    }
+    
     public void updateScore() {
             
     }

@@ -14,7 +14,7 @@ public class PiecePanel extends JPanel {
         holdPanel = new HoldPanel();
         queuePanel = new QueuePanel();
         add(holdPanel,BorderLayout.NORTH);
-        add(queuePanel,BorderLayout.SOUTH);
+        add(queuePanel,BorderLayout.CENTER);
     }
 
     public void updateScore() {

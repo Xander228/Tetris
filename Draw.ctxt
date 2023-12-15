@@ -1,9 +1,7 @@
 #BlueJ class context
 comment0.target=Draw
-comment1.params=side\ color
-comment1.target=java.awt.Color\ colorOf(int,\ java.awt.Color)
+comment1.params=g
+comment1.target=void\ header(java.awt.Graphics)
 comment2.params=x\ y\ color\ g
 comment2.target=void\ square(int,\ int,\ int,\ java.awt.Graphics)
-comment3.params=x\ y\ color\ g
-comment3.target=void\ Square(int,\ int,\ java.awt.Color,\ java.awt.Graphics)
-numComments=4
+numComments=3
