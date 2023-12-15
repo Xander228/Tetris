@@ -43,7 +43,7 @@ public class TetrisFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Update the game logic
-                //tetrisBoard.update();
+                tetrisBoard.update();
 
                 // Update the score
                 scorePanel.updateScore();
