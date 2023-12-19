@@ -24,16 +24,14 @@ public class TetrisBoard extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g); 
         this.drawBoard(g);
-        i++;
-        if (i > 7) i = 0;
-            tetromino = new Tetromino(i, x,  y);
-            tetromino.draw(g);
-
+        tetromino = new Tetromino(i, x,  y);
+        tetromino.draw(g);
     }
     
     public void update() {
+        i++;
+        if (i >= 7) i = 0;
         repaint();
-        
     }
 
     public void drawBoard(Graphics g) {
@@ -50,18 +48,19 @@ public class TetrisBoard extends JPanel {
             case 37:
                 x--;
                 break;
-            //left arrow pressed    
+            //up arrow pressed    
             case 38:
                 y--;
                 break;
-                
+            //right arrow pressed     
             case 39:
                 x++;
                 break;
-                
+            //down arrow pressed     
             case 40:
                 y++;
                 break;
         }
+        repaint();
     }
 }
