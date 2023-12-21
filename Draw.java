@@ -13,8 +13,6 @@ public class Draw
     }
     
     public static void square(int x, int y, int color, Graphics g) {
-        x = x * Constants.PIECE_SIZE;
-        y = y * Constants.PIECE_SIZE;
         //draw main square
         g.setColor(Constants.COLORS[color][0]);
         g.fillRect(x, y, Constants.PIECE_SIZE, Constants.PIECE_SIZE);

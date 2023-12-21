@@ -13,10 +13,17 @@ public class Constants
     static int BOARD_HEIGHT = BOARD_ROWS * PIECE_SIZE;
     static int HEADER_HEIGHT = 30;
     static int PIECE_PANEL_WIDTH = 200;
-    static int HOLD_PANEL_HEIGHT = HEADER_HEIGHT + 5 * PIECE_SIZE;
+    static int HOLD_PANEL_HEIGHT = 5 * PIECE_SIZE;
     static int SCORE_PANEL_HEIGHT = 50;
     static int FRAME_WIDTH = BOARD_WIDTH + PIECE_PANEL_WIDTH;
     static int FRAME_HEIGHT = BOARD_HEIGHT + SCORE_PANEL_HEIGHT;
+    
+    //Piece center offests formated in rows x cols (y,x)
+    static int[] DEFAULT_PIECE_OFFSET = {2 * PIECE_SIZE, (int)(1.5 * PIECE_SIZE)};
+    static int[] SQUARE_PIECE_OFFSET = {2 * PIECE_SIZE, 2 * PIECE_SIZE};
+    static int[] LINE_PIECE_OFFSET = {(int)(1.5 * PIECE_SIZE), 2 * PIECE_SIZE};
+    
+    
     static Color BACKGROND_COLOR = new Color((int)0x212121);
     static Color ACCENT_COLOR = new Color((int)0x555555);
     //Color[0] defines board colors

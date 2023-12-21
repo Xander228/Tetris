@@ -20,7 +20,7 @@ public class QueuePanel extends JPanel {
 
     }
     
-    public void updateScore() {
+    public void update() {
             
     }
 }

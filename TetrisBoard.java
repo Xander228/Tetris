@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class TetrisBoard extends JPanel {
-    int i = 0;
     int x = 0;
     int y = 0;
     
@@ -24,20 +23,21 @@ public class TetrisBoard extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g); 
         this.drawBoard(g);
-        tetromino = new Tetromino(i, x,  y);
+        tetromino = new Tetromino(TetrisFrame.i, x,  y);
         tetromino.draw(g);
     }
     
     public void update() {
-        i++;
-        if (i >= 7) i = 0;
         repaint();
     }
 
     public void drawBoard(Graphics g) {
         for(int i = 0; i < Constants.BOARD_COLS; i++) {
             for(int j = 0; j < Constants.BOARD_ROWS; j++) {
-                Draw.square(i, j, board[j][i], g);
+                Draw.square(i * Constants.PIECE_SIZE, 
+                            j * Constants.PIECE_SIZE, 
+                            board[j][i], 
+                            g);
             }   
         }
     }

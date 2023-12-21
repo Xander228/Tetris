@@ -4,7 +4,8 @@ import java.awt.event.*;
 
 public class HoldPanel extends JPanel {
     private JLabel pieceLabel;
-
+    Tetromino tetromino;
+    
     public HoldPanel() {
         // Initialize components, set layout, etc.
         setPreferredSize( new Dimension(Constants.PIECE_PANEL_WIDTH, 
@@ -19,10 +20,13 @@ public class HoldPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g); 
         Draw.header(g);
-
+        tetromino = new Tetromino(  TetrisFrame.i, 
+                                    Constants.PIECE_PANEL_WIDTH / 2 - Constants.DEFAULT_PIECE_OFFSET[1],  
+                                    Constants.HOLD_PANEL_HEIGHT / 2 - Constants.DEFAULT_PIECE_OFFSET[0]);
+        tetromino.draw(g);
     }
     
-    public void updateScore() {
-            
+    public void update() {
+        repaint();
     }
 }

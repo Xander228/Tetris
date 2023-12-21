@@ -7,13 +7,16 @@ public class TetrisFrame extends JFrame {
     private TetrisBoard tetrisBoard;
     private PiecePanel piecePanel;
     private ScorePanel scorePanel;
+    static int i = 0;
+    
     public TetrisFrame() {
         // Set up the frame properties
         setTitle("Tetris");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         
-        
+        //Create a panel within the fram that contains all subpanels
+        //This is done to add a border around and between the subpanels
         mainPanel = new JPanel();
         mainPanel.setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10, Constants.ACCENT_COLOR));
         mainPanel.setBackground(Constants.ACCENT_COLOR);
@@ -42,9 +45,15 @@ public class TetrisFrame extends JFrame {
         Timer timer = new Timer(500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                i++;
+                if (i >= 7) i = 0;
+                
                 // Update the game logic
                 tetrisBoard.update();
 
+                // Update piece panels
+                piecePanel.update();
+                
                 // Update the score
                 scorePanel.updateScore();
 
