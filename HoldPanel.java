@@ -20,9 +20,7 @@ public class HoldPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g); 
         Draw.header(g);
-        tetromino = new Tetromino(  TetrisFrame.i, 
-                                    Constants.PIECE_PANEL_WIDTH / 2 - Constants.DEFAULT_PIECE_OFFSET[1],  
-                                    Constants.HOLD_PANEL_HEIGHT / 2 - Constants.DEFAULT_PIECE_OFFSET[0]);
+        tetromino = new Tetromino(TetrisFrame.i, Constants.PIECE_PANEL_WIDTH / 2, (int)(Constants.HOLD_PANEL_HEIGHT * 0.55));
         tetromino.draw(g);
     }
     

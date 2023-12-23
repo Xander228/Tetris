@@ -6,7 +6,6 @@ public class TetrisFrame extends JFrame {
     private JPanel mainPanel;
     private TetrisBoard tetrisBoard;
     private PiecePanel piecePanel;
-    private ScorePanel scorePanel;
     static int i = 0;
     
     public TetrisFrame() {
@@ -27,15 +26,11 @@ public class TetrisFrame extends JFrame {
 
         // Create an instance of the ScorePanel class
         piecePanel = new PiecePanel();
-
-        // Create an instance of the ScorePanel class
-        scorePanel = new ScorePanel();
         
         
         // Add the TetrisBoard and ScorePanel to the frame
         
         mainPanel.add(tetrisBoard);
-        mainPanel.add(scorePanel, BorderLayout.NORTH);
         mainPanel.add(piecePanel, BorderLayout.EAST);
         
         add(mainPanel);
@@ -53,9 +48,6 @@ public class TetrisFrame extends JFrame {
 
                 // Update piece panels
                 piecePanel.update();
-                
-                // Update the score
-                scorePanel.updateScore();
 
             }
         });
@@ -69,7 +61,6 @@ public class TetrisFrame extends JFrame {
             public void keyPressed(KeyEvent e) {
                 // Handle key presses for game controls (e.g., move left, move right, rotate)
                 tetrisBoard.handleKeyPress(e.getKeyCode());
-                scorePanel.handleKeyPress(e.getKeyCode());
             }
 
             @Override

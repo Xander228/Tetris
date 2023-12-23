@@ -3,9 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class TetrisBoard extends JPanel {
-    int x = 0;
-    int y = 0;
-    
     //Game board array formated in rows x cols (y,x)
     int[][] board = new int[Constants.BOARD_ROWS][Constants.BOARD_COLS];
     
@@ -17,13 +14,19 @@ public class TetrisBoard extends JPanel {
         setPreferredSize( new Dimension(Constants.BOARD_WIDTH, 
                                         Constants.BOARD_HEIGHT));
         board[0][0] = 1;
+        initPiece();
+    }
+    
+    public void initPiece() {
+        tetromino = new Tetromino((int)(Math.random() * 6), 0, 0);
+        tetromino.setBoardRelative(true);
+        tetromino.setCoords(5, 0);
     }
     
     @Override 
     public void paintComponent(Graphics g) {
         super.paintComponent(g); 
         this.drawBoard(g);
-        tetromino = new Tetromino(TetrisFrame.i, x,  y);
         tetromino.draw(g);
     }
     
@@ -46,19 +49,19 @@ public class TetrisBoard extends JPanel {
         switch(key){ 
             //left arrow pressed
             case 37:
-                x--;
+                //x--;
                 break;
             //up arrow pressed    
             case 38:
-                y--;
+                //y--;
                 break;
             //right arrow pressed     
             case 39:
-                x++;
+                //x++;
                 break;
             //down arrow pressed     
             case 40:
-                y++;
+                //y++;
                 break;
         }
         repaint();

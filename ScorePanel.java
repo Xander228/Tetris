@@ -8,20 +8,16 @@ public class ScorePanel extends JPanel {
     int key = 0;
     public ScorePanel() {
         // Initialize components, set layout, etc.
-        setPreferredSize( new Dimension(Constants.FRAME_WIDTH, 
+        setPreferredSize( new Dimension(Constants.PIECE_PANEL_WIDTH, 
                                         Constants.SCORE_PANEL_HEIGHT));
         //setBackground(Constants.COLORS[0][0]);
         scoreLabel = new JLabel("Score: 0");
         add(scoreLabel);
     }
     
-    public void handleKeyPress(int key){
-        this.key = key;
-    }
-    
-    public void updateScore() {
+    public void update() {
         i++;
-        scoreLabel.setText("Score: " + i);
+        scoreLabel.setText("Score: " + i + "\n hewllo");
         //scoreLabel.setText("key: " + key);
     }
     

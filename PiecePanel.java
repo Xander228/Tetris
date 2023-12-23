@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class PiecePanel extends JPanel {
+    private ScorePanel scorePanel;
     private HoldPanel holdPanel;
     private QueuePanel queuePanel;
 
@@ -11,13 +12,18 @@ public class PiecePanel extends JPanel {
         setPreferredSize( new Dimension(Constants.PIECE_PANEL_WIDTH, 
                                         Constants.BOARD_HEIGHT));
         setLayout(new BorderLayout(0, 0));
+        
+        scorePanel = new ScorePanel();
         holdPanel = new HoldPanel();
         queuePanel = new QueuePanel();
-        add(holdPanel,BorderLayout.NORTH);
-        add(queuePanel,BorderLayout.CENTER);
+        
+        add(scorePanel,BorderLayout.NORTH);
+        add(holdPanel,BorderLayout.CENTER);
+        add(queuePanel,BorderLayout.SOUTH);
     }
 
     public void update() {
+        scorePanel.update();
         holdPanel.update();
         queuePanel.update();
     }
