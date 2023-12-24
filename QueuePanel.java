@@ -21,7 +21,7 @@ public class QueuePanel extends JPanel {
         super.paintComponent(g); 
         Draw.header(g);
         for(int i = 0; i < 3; i++) {
-            tetromino = new Tetromino((TetrisFrame.i + i) % 7, Constants.PIECE_PANEL_WIDTH / 2, (int)(Constants.HOLD_PANEL_HEIGHT * 0.55) + i * 4 * Constants.PIECE_SIZE);
+            tetromino = new Tetromino((TetrisFrame.i + i) % 7, Constants.PIECE_PANEL_WIDTH / 2, (int)(Constants.HOLD_PANEL_HEIGHT * 0.55) + i * 4 * Constants.PIECE_SIZE, false);
             tetromino.draw(g);
         }
         

@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 public class TetrisBoard extends JPanel {
     //Game board array formated in rows x cols (y,x)
-    int[][] board = new int[Constants.BOARD_ROWS][Constants.BOARD_COLS];
+    private int[][] board = new int[Constants.BOARD_ROWS][Constants.BOARD_COLS];
     
     //Create object variable to hold the current piece in hand
     Tetromino tetromino;
@@ -14,13 +14,16 @@ public class TetrisBoard extends JPanel {
         setPreferredSize( new Dimension(Constants.BOARD_WIDTH, 
                                         Constants.BOARD_HEIGHT));
         board[0][0] = 1;
+        board[6][6] = 3;
+        board[10][4] = 5;
+        board[15][8] = 7;
+        
         initPiece();
     }
     
     public void initPiece() {
-        tetromino = new Tetromino((int)(Math.random() * 6), 0, 0);
-        tetromino.setBoardRelative(true);
-        tetromino.setCoords(5, 0);
+        tetromino = new Tetromino((int)(Math.random() * 6), 0, 0, true);
+        tetromino.setBoardCoords(5, 0);
     }
     
     @Override 
@@ -35,11 +38,11 @@ public class TetrisBoard extends JPanel {
     }
 
     public void drawBoard(Graphics g) {
-        for(int i = 0; i < Constants.BOARD_COLS; i++) {
-            for(int j = 0; j < Constants.BOARD_ROWS; j++) {
-                Draw.square(i * Constants.PIECE_SIZE, 
-                            j * Constants.PIECE_SIZE, 
-                            board[j][i], 
+        for(int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
+            for(int indexY = 0; indexY < Constants.BOARD_ROWS; indexY++) {
+                Draw.square(indexX * Constants.PIECE_SIZE, 
+                            indexY * Constants.PIECE_SIZE, 
+                            board[indexY][indexX], 
                             g);
             }   
         }
@@ -49,7 +52,7 @@ public class TetrisBoard extends JPanel {
         switch(key){ 
             //left arrow pressed
             case 37:
-                //x--;
+                tetromino.tryLeft(board);
                 break;
             //up arrow pressed    
             case 38:
@@ -57,11 +60,11 @@ public class TetrisBoard extends JPanel {
                 break;
             //right arrow pressed     
             case 39:
-                //x++;
+                tetromino.tryRight(board);
                 break;
             //down arrow pressed     
             case 40:
-                //y++;
+                tetromino.tryDrop(board);
                 break;
         }
         repaint();
