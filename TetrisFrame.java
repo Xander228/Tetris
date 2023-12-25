@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
 
 public class TetrisFrame extends JFrame {
     private JPanel mainPanel;
-    private TetrisBoard tetrisBoard;
+    private MatrixPanel matrixPanel;
     private PiecePanel piecePanel;
     static int i = 0;
     
@@ -22,7 +23,7 @@ public class TetrisFrame extends JFrame {
         mainPanel.setLayout(new BorderLayout(10, 10));
         
         // Create an instance of the TetrisBoard class
-        tetrisBoard = new TetrisBoard();
+        matrixPanel = new MatrixPanel();
 
         // Create an instance of the ScorePanel class
         piecePanel = new PiecePanel();
@@ -30,7 +31,7 @@ public class TetrisFrame extends JFrame {
         
         // Add the TetrisBoard and ScorePanel to the frame
         
-        mainPanel.add(tetrisBoard);
+        mainPanel.add(matrixPanel);
         mainPanel.add(piecePanel, BorderLayout.EAST);
         
         add(mainPanel);
@@ -44,7 +45,7 @@ public class TetrisFrame extends JFrame {
                 if (i >= 7) i = 0;
                 
                 // Update the game logic
-                tetrisBoard.update();
+                matrixPanel.update();
 
                 // Update piece panels
                 piecePanel.update();
@@ -53,22 +54,31 @@ public class TetrisFrame extends JFrame {
         });
 
         // Set up KeyListener for user input
-        tetrisBoard.addKeyListener(new KeyListener() {
+        HashMap<Integer, Boolean> pressedKeys = new HashMap<Integer, Boolean>();
+        pressedKeys.put(KeyEvent.VK_UP, false);
+        pressedKeys.put(KeyEvent.VK_DOWN, false);
+        pressedKeys.put(KeyEvent.VK_LEFT, false);
+        pressedKeys.put(KeyEvent.VK_RIGHT, false);
+        
+        addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {}
 
             @Override
             public void keyPressed(KeyEvent e) {
                 // Handle key presses for game controls (e.g., move left, move right, rotate)
-                tetrisBoard.handleKeyPress(e.getKeyCode());
+                pressedKeys.replace(e.getKeyCode(), true);
+                matrixPanel.handleKeyPress(pressedKeys);
             }
 
             @Override
-            public void keyReleased(KeyEvent e) {}
+            public void keyReleased(KeyEvent e) {
+                pressedKeys.replace(e.getKeyCode(), false);
+            }
         });
 
         // Set the frame focusable for KeyListener
-        tetrisBoard.setFocusable(true);
+        setFocusable(true);
 
         // Start the timer
         timer.start();

@@ -1,29 +1,30 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
 
-public class TetrisBoard extends JPanel {
-    //Game board array formated in rows x cols (y,x)
-    private int[][] board = new int[Constants.BOARD_ROWS][Constants.BOARD_COLS];
+public class MatrixPanel extends JPanel {
+    //Game board array formated in cols x rows (y,x)
+    private int[][] board = new int[Constants.BOARD_COLS][Constants.TOTAL_BOARD_ROWS];
     
     //Create object variable to hold the current piece in hand
     Tetromino tetromino;
     
-    public TetrisBoard() {
+    public MatrixPanel() {
         // Initialize components, set layout
         setPreferredSize( new Dimension(Constants.BOARD_WIDTH, 
                                         Constants.BOARD_HEIGHT));
         board[0][0] = 1;
-        board[6][6] = 3;
-        board[10][4] = 5;
-        board[15][8] = 7;
+        board[6][12] = 3;
+        board[4][10] = 5;
+        board[2][15] = 7;
         
         initPiece();
     }
     
     public void initPiece() {
         tetromino = new Tetromino((int)(Math.random() * 6), 0, 0, true);
-        tetromino.setBoardCoords(5, 0);
+        tetromino.setBoardCoords(5, -1);
     }
     
     @Override 
@@ -42,31 +43,25 @@ public class TetrisBoard extends JPanel {
             for(int indexY = 0; indexY < Constants.BOARD_ROWS; indexY++) {
                 Draw.square(indexX * Constants.PIECE_SIZE, 
                             indexY * Constants.PIECE_SIZE, 
-                            board[indexY][indexX], 
+                            board[indexX][indexY + Constants.BUFFER_ZONE], 
                             g);
             }   
         }
     }
     
-    public void handleKeyPress(int key){
-        switch(key){ 
-            //left arrow pressed
-            case 37:
-                tetromino.tryLeft(board);
-                break;
-            //up arrow pressed    
-            case 38:
-                //y--;
-                break;
-            //right arrow pressed     
-            case 39:
-                tetromino.tryRight(board);
-                break;
-            //down arrow pressed     
-            case 40:
-                tetromino.tryDrop(board);
-                break;
-        }
+    public void handleKeyPress(HashMap<Integer, Boolean> key){
+        //left arrow pressed
+        if (key.get(KeyEvent.VK_LEFT)) tetromino.tryLeft(board);
+        
+        //up arrow pressed    
+        if (key.get(KeyEvent.VK_UP)) tetromino.tryRotation(board);
+        
+        //right arrow pressed     
+        if (key.get(KeyEvent.VK_RIGHT)) tetromino.tryRight(board);
+        
+        //down arrow pressed     
+        if (key.get(KeyEvent.VK_DOWN)) tetromino.tryDrop(board);
+            
         repaint();
     }
 }

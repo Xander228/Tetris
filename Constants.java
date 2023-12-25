@@ -5,32 +5,30 @@ import java.awt.event.*;
 
 public class Constants
 {
-    static int BOARD_COLS = 10;
-    static int BOARD_ROWS = 20;
-    static int PIECE_SIZE = 40;
-    static int PIECE_EDGE_WIDTH = PIECE_SIZE / 7;
-    static int BOARD_WIDTH = BOARD_COLS * PIECE_SIZE;
-    static int BOARD_HEIGHT = BOARD_ROWS * PIECE_SIZE;
+    public static final int BOARD_COLS = 10;
+    public static final int BOARD_ROWS = 20;
+    public static final int BUFFER_ZONE = 4;
+    public static final int TOTAL_BOARD_ROWS = BOARD_ROWS + BUFFER_ZONE;
     
-    static int HEADER_HEIGHT = 30;
-    static int PIECE_PANEL_WIDTH = 200;
-    static int SCORE_PANEL_HEIGHT = 80;
-    static int HOLD_PANEL_HEIGHT = 5 * PIECE_SIZE;
-    static int QUEUE_PANEL_HEIGHT = BOARD_HEIGHT - SCORE_PANEL_HEIGHT - HOLD_PANEL_HEIGHT;
-    static int FRAME_WIDTH = BOARD_WIDTH + PIECE_PANEL_WIDTH;
-    static int FRAME_HEIGHT = BOARD_HEIGHT;
+    public static final int PIECE_SIZE = 40;
+    public static final int PIECE_EDGE_WIDTH = PIECE_SIZE / 7;
+    public static final int BOARD_WIDTH = BOARD_COLS * PIECE_SIZE;
+    public static final int BOARD_HEIGHT = BOARD_ROWS * PIECE_SIZE;
     
-    //Piece center offests formated in cols x rows (x,y)
-    static int[] DEFAULT_PIECE_OFFSET = {(int)(1.5 * PIECE_SIZE), 2 * PIECE_SIZE};
-    static int[] SQUARE_PIECE_OFFSET = {2 * PIECE_SIZE, 2 * PIECE_SIZE};
-    static int[] LINE_PIECE_OFFSET = {2 * PIECE_SIZE, (int)(1.5 * PIECE_SIZE)};
+    public static final int HEADER_HEIGHT = 30;
+    public static final int PIECE_PANEL_WIDTH = 200;
+    public static final int SCORE_PANEL_HEIGHT = 80;
+    public static final int HOLD_PANEL_HEIGHT = 5 * PIECE_SIZE;
+    public static final int QUEUE_PANEL_HEIGHT = BOARD_HEIGHT - SCORE_PANEL_HEIGHT - HOLD_PANEL_HEIGHT;
+    public static final int FRAME_WIDTH = BOARD_WIDTH + PIECE_PANEL_WIDTH;
+    public static final int FRAME_HEIGHT = BOARD_HEIGHT;
     
+    public static final  Color BACKGROND_COLOR = new Color((int)0x212121);
+    public static final  Color ACCENT_COLOR = new Color((int)0x555555);
     
-    static Color BACKGROND_COLOR = new Color((int)0x212121);
-    static Color ACCENT_COLOR = new Color((int)0x555555);
     //Color[0] defines board colors
     //Color[1 - 7] define piece colors
-    static Color[][] COLORS = {
+    public static final  Color[][] COLORS = {
         {new Color((int)0x212121),new Color((int)0x393939),new Color((int)0x070707),new Color((int)0x171717),new Color((int)0x2f2f2f)},
         {new Color((int)0xff0000),new Color((int)0xff8888),new Color((int)0x950000),new Color((int)0xca0000),new Color((int)0xff4040)},
         {new Color((int)0xffc800),new Color((int)0xffe99d),new Color((int)0x955e00),new Color((int)0xca9300),new Color((int)0xffd955)},
