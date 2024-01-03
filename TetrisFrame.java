@@ -38,7 +38,7 @@ public class TetrisFrame extends JFrame {
         pack();
         
         // Set up a Timer for the game loop
-        Timer timer = new Timer(500, new ActionListener() {
+        Timer timer = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 i++;
