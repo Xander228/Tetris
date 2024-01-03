@@ -163,22 +163,28 @@ public class Tetromino {
         this.pixelY = Constants.PIECE_SIZE * this.boardY;
     }
     
-    public void tryLeft(int[][] board){
-        if(isOutOfBounds(this.boardX - 1, this.boardY)) return;
-        if(isOverlaped(this.boardX - 1, this.boardY, board)) return;
+    //returns true if move is successful
+    public boolean tryLeft(int[][] board){
+        if(isOutOfBounds(this.boardX - 1, this.boardY)) return false;
+        if(isOverlaped(this.boardX - 1, this.boardY, board)) return false;
         this.boardX--;
         updatePixelCoords();
+        return true;
     }
     
-    public void tryRight(int[][] board){
-        if(isOutOfBounds(this.boardX + 1, this.boardY)) return;
-        if(isOverlaped(this.boardX + 1, this.boardY, board)) return;
+    //returns true if move is successful
+    public boolean tryRight(int[][] board){
+        if(isOutOfBounds(this.boardX + 1, this.boardY)) return false;
+        if(isOverlaped(this.boardX + 1, this.boardY, board)) return false;
         this.boardX++;
         updatePixelCoords();
+        return true;
     }
     
-    public void tryRotation(int[][] board){
-        if(this.type.equals(TetrominoType.O)) return;
+    //returns true if move is successful
+    public boolean tryRotation(int[][] board){
+        //O pieces can't be rotated and thus can't move rotationaly
+        if(this.type.equals(TetrominoType.O)) return false;
         int desiredRotation = (pieceRotation + 1) % 4;
         int[][] currentTestSet;
 
@@ -209,15 +215,20 @@ public class Tetromino {
             this.boardX += xOffset;
             this.boardY -= yOffset;
             updatePixelCoords();
-            return;
+            return true;
         }
+        
+        //returns false if all test cases fail
+        return false;
     }
     
-    public void tryDrop(int[][] board){
-        if(isOutOfBounds(this.boardX, this.boardY + 1)) return;
-        if(isOverlaped(this.boardX, this.boardY + 1, board)) return;
+    //returns true if move is successful
+    public boolean tryDrop(int[][] board){
+        if(isOutOfBounds(this.boardX, this.boardY + 1)) return false;
+        if(isOverlaped(this.boardX, this.boardY + 1, board)) return false;
         this.boardY++;
         updatePixelCoords();
+        return true;
     }
     
     public void tryUp(int[][] board){
