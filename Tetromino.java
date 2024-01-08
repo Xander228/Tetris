@@ -121,6 +121,7 @@ public class Tetromino {
     
     //type is a nuumber 0 - 6 that refers to the type of tetromino
     public Tetromino(int type, int x, int y, boolean boardRelative) {
+        //sets this.type to the value at index type in the array of TetrominoType values
         this.type = TetrominoType.values()[type];
         this.pieceRotation = 0;
         this.boardRelative = boardRelative;
