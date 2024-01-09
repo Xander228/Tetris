@@ -4,7 +4,9 @@ import java.awt.event.*;
 
 public class QueuePanel extends JPanel {
     private JLabel pieceLabel;
-    Tetromino tetromino;
+    private Tetromino tetromino;
+    private PieceBag pieceBag;
+    private int[] currentQueue;
     
     public QueuePanel() {
         // Initialize components, set layout, etc.
@@ -14,14 +16,31 @@ public class QueuePanel extends JPanel {
         pieceLabel = new JLabel("QUEUE");
         pieceLabel.setFont(new Font("Arial", Font.BOLD, 18));
         add(pieceLabel);
+        
+        pieceBag = new PieceBag();
+        initializeQueue();
+        
     }
-
+    
+    private void initializeQueue() {
+        currentQueue = new int[3];
+        for (int i = 0; i < 3; i++) currentQueue[i] = pieceBag.pullNewPiece();
+    }
+    
+    private int pullFromQueue() {
+        int pulledPiece = currentQueue[0];
+        currentQueue[0] = currentQueue[1];
+        currentQueue[1] = currentQueue[2];
+        currentQueue[2] = pieceBag.pullNewPiece();
+        return pulledPiece;
+    }
+    
     @Override 
     public void paintComponent(Graphics g) {
         super.paintComponent(g); 
         Draw.header(g);
         for(int i = 0; i < 3; i++) {
-            tetromino = new Tetromino((TetrisFrame.i + i) % 7, Constants.PIECE_PANEL_WIDTH / 2, (int)(Constants.HOLD_PANEL_HEIGHT * 0.55) + i * 4 * Constants.PIECE_SIZE, false);
+            tetromino = new Tetromino(pullFromQueue(), Constants.PIECE_PANEL_WIDTH / 2, (int)(Constants.HOLD_PANEL_HEIGHT * 0.55) + i * 4 * Constants.PIECE_SIZE, false);
             tetromino.draw(g);
         }
         

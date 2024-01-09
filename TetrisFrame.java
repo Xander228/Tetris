@@ -8,7 +8,6 @@ public class TetrisFrame extends JFrame {
     private EventLoop eventLoop;
     private MatrixPanel matrixPanel;
     private PiecePanel piecePanel;
-    static int i = 0;
     
     public TetrisFrame() {
         // Set up the frame properties
@@ -48,6 +47,7 @@ public class TetrisFrame extends JFrame {
         pressedKeys.put(KeyEvent.VK_DOWN, false);
         pressedKeys.put(KeyEvent.VK_LEFT, false);
         pressedKeys.put(KeyEvent.VK_RIGHT, false);
+        pressedKeys.put(KeyEvent.VK_ESCAPE, false);
         
         // Set up KeyListener for user input
         addKeyListener(new KeyListener() {
