@@ -243,7 +243,7 @@ public class Tetromino {
         this.boardRelative = boardRelative;
     }
     
-    public boolean isOverlaped(int x, int y, int rotation, int[][] board) {
+    private boolean isOverlaped(int x, int y, int rotation, int[][] board) {
         for (int indexY = 0; indexY < 4; indexY++) {
             for (int indexX = 0; indexX < 4; indexX++) {
                 //ignores tile if no mino occupies it
@@ -295,4 +295,7 @@ public class Tetromino {
         }
     }
 
+    public void drawGhost(int[][] board, Graphics g) {
+        isOverlaped(int x, int y, int rotation, int[][] board);
+    }
 }

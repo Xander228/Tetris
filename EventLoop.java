@@ -70,23 +70,31 @@ public class EventLoop
     public void runGame(HashMap<Integer, Boolean> key) {
         switch(this.gameState){
             case GENERATION_PHASE:
-                //Set tetromino to the piece passed in, sets start location, index queue and reshuffle bag if necessary
+                //Set tetromino to the piece passed in, sets start location
+                //If hold check is true switches hold with current piece
+                //Continues to FALLING_PHASE 
                 break;
             case FALLING_PHASE:
                 //Allow user input to move piece right, left, rotate, and drop; also drops each x seconds based on level
+                //If hold is pressed, set hold check true and return to GENERATION_PHASE
                 //checks for piece underneath current tetromino and sets state to LOCK_PHASE if true
-                //Hard drop skips to clear phase
+                //Hard drop skips to CLEAR_PHASE
                 break;
             case LOCK_PHASE:
                 //Allow user input to move piece right, left, rotate, and lock; force locks after x seconds
+                //If hold is pressed, set hold check true and return to GENERATION_PHASE
                 //If piece is now able to drop revert to FALLING_PAHSE
                 //If locked continue to CLEAR_PHASE
                 break;
             case CLEAR_PHASE:
-                //Writes current tetromino to its loction on the board and checks
+                //Writes current tetromino to its loction on the board and checks for lines
+                //Clears lines and tallys them
+                //Continues to UPDATE_PHASE
                 break;
             case UPDATE_PHASE:
                 //Updates score, lines, and level
+                //Resets hold check
+                //Continues to GENERATION_PHASE
                 break;
         }
     }

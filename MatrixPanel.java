@@ -32,6 +32,7 @@ public class MatrixPanel extends JPanel {
         super.paintComponent(g); 
         this.drawBoard(g);
         tetromino.draw(g);
+        tetromino.drawGhost(board, g);
     }
     
     public void update() {

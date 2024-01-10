@@ -9,6 +9,7 @@ public class Constants
     public static final int BOARD_ROWS = 20;
     public static final int BUFFER_ZONE = 4;
     public static final int TOTAL_BOARD_ROWS = BOARD_ROWS + BUFFER_ZONE;
+    public static final int QUEUE_SIZE = 3;
     
     public static final int PIECE_SIZE = 40;
     public static final int PIECE_EDGE_WIDTH = PIECE_SIZE / 7;
