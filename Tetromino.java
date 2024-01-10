@@ -296,6 +296,22 @@ public class Tetromino {
     }
 
     public void drawGhost(int[][] board, Graphics g) {
-        isOverlaped(int x, int y, int rotation, int[][] board);
+        int lowestY = 24;
+        for(int i = 0; i < Constants.BOARD_ROWS - this.boardY - 1; i++) {
+            if(isOverlaped(this.boardX, this.boardY + i, this.pieceRotation, board)) {
+                lowestY = this.boardY + i - 1;
+                break;
+            }
+        }
+        
+        for (int indexY = 0; indexY < 4; indexY++) {
+            for (int indexX = 0; indexX < 4; indexX++) {
+                if (tetrominos[this.type.toInt()][indexY][pieceRotation][indexX] == 0) continue;
+                Draw.ghostSquare(indexX * Constants.PIECE_SIZE + pixelX, 
+                            (indexY + lowestY) * Constants.PIECE_SIZE, 
+                            tetrominos[this.type.toInt()][indexY][this.pieceRotation][indexX], 
+                            g);
+            }
+        }
     }
 }

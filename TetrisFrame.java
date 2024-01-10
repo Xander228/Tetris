@@ -67,12 +67,12 @@ public class TetrisFrame extends JFrame {
         });
 
         // Set up a Timer for the game loop
-        Timer timer = new Timer(500, new ActionListener() {
+        Timer timer = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //pass in the list of currently pressed keys when running the loop
                 eventLoop.run(pressedKeys);
-                
+                matrixPanel.handleKeyPress(pressedKeys);
                 // Update the game logic
                 matrixPanel.update();
 
