@@ -27,7 +27,7 @@ public class GameLoop extends JPanel {
     private PiecePanel piecePanel;
     private boolean hasSwap;
 
-    GameLoop() {
+    public GameLoop() {
         this.gameState = GameStates.FALLING_PHASE;
 
         // Create an instance of the TetrisBoard class
@@ -54,6 +54,7 @@ public class GameLoop extends JPanel {
                 //Continues to FALLING_PHASE
                 if(hasSwap) {
                     //swap with hold
+
                 } else {
                     //pull from queue
                 }
