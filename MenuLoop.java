@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
 
+import static javax.swing.BorderFactory.createMatteBorder;
+
 public class MenuLoop extends JPanel {
     
     private enum ScreenStates {
@@ -29,6 +31,7 @@ public class MenuLoop extends JPanel {
     public MenuLoop()
     {
         this.screenState = ScreenStates.RUNNING;
+        setLayout(new BorderLayout(0, 0));
         gameLoop = new GameLoop();
         add(gameLoop);
     }
