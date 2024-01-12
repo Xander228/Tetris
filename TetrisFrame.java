@@ -1,43 +1,21 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
 
 public class TetrisFrame extends JFrame {
-    private JPanel mainPanel;
-    private EventLoop eventLoop;
-    private MatrixPanel matrixPanel;
-    private PiecePanel piecePanel;
+    private MenuLoop menuLoop;
+
     
     public TetrisFrame() {
         // Set up the frame properties
         setTitle("Tetris");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        
-        //create an instance of the EventLoop class to run state specific code
-        eventLoop = new EventLoop();
-        
-        //Create a panel within the frame that contains all subpanels
-        //This is done to add a border around and between the subpanels
-        mainPanel = new JPanel();
-        mainPanel.setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10, Constants.ACCENT_COLOR));
-        mainPanel.setBackground(Constants.ACCENT_COLOR);
-        mainPanel.setLayout(new BorderLayout(10, 10));
-        
-        // Create an instance of the TetrisBoard class
-        matrixPanel = new MatrixPanel();
 
-        // Create an instance of the ScorePanel class
-        piecePanel = new PiecePanel();
-        
-        
-        // Add the TetrisBoard and ScorePanel to the frame
-        
-        mainPanel.add(matrixPanel);
-        mainPanel.add(piecePanel, BorderLayout.EAST);
-        
-        add(mainPanel);
+        //menuLoop is a panel within the frame that contains all screenPanels
+        //menuLoop switches the current panel based on the screenStates
+        menuLoop = new MenuLoop();
+        add(menuLoop);
         pack();
         
 
@@ -71,14 +49,7 @@ public class TetrisFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //pass in the list of currently pressed keys when running the loop
-                eventLoop.run(pressedKeys);
-                matrixPanel.handleKeyPress(pressedKeys);
-                // Update the game logic
-                matrixPanel.update();
-
-                // Update piece panels
-                piecePanel.update();
-
+                menuLoop.run(pressedKeys);
             }
         });
         // Set the frame focusable for KeyListener

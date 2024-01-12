@@ -33,23 +33,23 @@ public class QueuePanel extends JPanel {
         for (int i = 0; i < currentQueue.length - 1; i++) currentQueue[i] = currentQueue[i + 1];
         //pulls a new piece from the bag to store in the last slot of the queue
         currentQueue[currentQueue.length - 1] = new Tetromino(pieceBag.pullNewPiece(), 0, 0, false);
-        //return the fisrt piece pulled from the queue
+        //return the first piece pulled from the queue
         return pulledPiece;
     }
     
     @Override 
     public void paintComponent(Graphics g) {
-        //runs code inherited from the pearent class required to render the panel
+        //runs code inherited from the parent class required to render the panel
         super.paintComponent(g); 
         //draws the header section
         Draw.header(g);
-        //creates a temporary referance variable for the current tetromino being drawn
+        //creates a temporary reference variable for the current tetromino being drawn
         Tetromino tetromino;
         //indexes through the currentQueue array and draws each piece
         for(int i = 0; i < 3; i++) {
             //get the tetromino as a given position in the queue
             tetromino = currentQueue[i];
-            //set the cooordinates of that piece based on its place in queue
+            //set the coordinates of that piece based on its place in queue
             tetromino.setPixelCoords(Constants.PIECE_PANEL_WIDTH / 2, (int)(Constants.HOLD_PANEL_HEIGHT * 0.55) + i * 4 * Constants.PIECE_SIZE);
             //draw the teromino
             tetromino.draw(g);
