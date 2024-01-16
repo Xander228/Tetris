@@ -1,10 +1,10 @@
-import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class Constants
 {
+    public static final int LOOP_TIME = 20;
+    public static final int AUTO_MOVE_MILLIS = 500;
+    public static final int AUTO_MOVE_LOOPS = AUTO_MOVE_MILLIS / LOOP_TIME;
     public static final int BOARD_COLS = 10;
     public static final int BOARD_ROWS = 20;
     public static final int BUFFER_ZONE = 4;
