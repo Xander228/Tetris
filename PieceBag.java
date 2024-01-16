@@ -24,10 +24,9 @@ public class PieceBag
     
     private void shuffleBag() {
         for (int i = 0; i < 30; i++) {
-            int buffer = 0;
-            int index1 = (int)(Math.random() * 6) + 1;
-            int index2 = (int)(Math.random() * 6) + 1;
-            buffer = pieceBag[index1];
+            int index1 = (int)(Math.random() * 6);
+            int index2 = (int)(Math.random() * 6);
+            int buffer = pieceBag[index1];
             pieceBag[index1] = pieceBag[index2];
             pieceBag[index2] = buffer;
         }
