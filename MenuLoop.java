@@ -26,17 +26,17 @@ public class MenuLoop extends JPanel {
 
 
     private ScreenStates screenState;
-    private GameLoop gameLoop;
+    private GamePanel gamePanel;
     
     public MenuLoop()
     {
         this.screenState = ScreenStates.RUNNING;
         setLayout(new BorderLayout(0, 0));
-        gameLoop = new GameLoop();
-        add(gameLoop);
+        gamePanel = new GamePanel();
+        add(gamePanel);
     }
     
-    public void run(HashMap<Integer, Boolean> key) {
+    public void run(HashMap<Integer, Boolean> keyPressed) {
         switch(this.screenState){
             case HOME:
                 //Display home panel with a play and quit button
@@ -45,9 +45,9 @@ public class MenuLoop extends JPanel {
                 //Display starting panel and then Sets state to Running 
                 break;
             case RUNNING:
-                //Display Gamepanel and check for pause key or runGame to return some value
-                if (key.get(KeyEvent.VK_ESCAPE)) this.screenState = ScreenStates.PAUSED;
-                gameLoop.run(key);
+                //Display gamePanel and check for pause key or runGame to return some value
+                if (keyPressed.get(KeyEvent.VK_ESCAPE)) this.screenState = ScreenStates.PAUSED;
+                gamePanel.runGameLoop(keyPressed);
                 break;
             case PAUSED:
                 //Display pause panel depending on input continues to starting screen or home         

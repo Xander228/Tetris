@@ -51,7 +51,7 @@ public class QueuePanel extends JPanel {
             tetromino = currentQueue[i];
             //set the coordinates of that piece based on its place in queue
             tetromino.setPixelCoords(Constants.PIECE_PANEL_WIDTH / 2, (int)(Constants.HOLD_PANEL_HEIGHT * 0.55) + i * 4 * Constants.PIECE_SIZE);
-            //draw the teromino
+            //draw the tetromino
             tetromino.draw(g);
         }
         

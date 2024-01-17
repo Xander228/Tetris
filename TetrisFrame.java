@@ -18,17 +18,12 @@ public class TetrisFrame extends JFrame {
         add(menuLoop);
         pack();
         
-        //creates a list of Keys that we wish to listen to
-        int[] keyList = {KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_ESCAPE};
         //create a hashmap that maps a key to a true false value to represent weather or not its pressed
-        HashMap<Integer, Boolean> pressedKeys = new HashMap<Integer, Boolean>();
-        //create a hashmap that maps a key to an integer value that represents the number of loops the key has been pressed for
-        HashMap<Integer, Integer> keyTimes = new HashMap<Integer, Integer>();
-        //adds each value of keyList to the hashmaps
-        for(int key : keyList) {
-            pressedKeys.put(key, false);
-            keyTimes.put(key, 0);
-        }
+        HashMap<Integer, Boolean> keyPressed = new HashMap<Integer, Boolean>();
+        
+        //adds each value of keyList to the hashmap
+        for(int key : Constants.KEY_LIST) keyPressed.put(key, false);
+        
         // Set up KeyListener for user input
         addKeyListener(new KeyListener() {
             @Override
@@ -37,13 +32,12 @@ public class TetrisFrame extends JFrame {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                // Handle key presses for game controls (e.g., move left, move right, rotate)
-                pressedKeys.replace(e.getKeyCode(), true);
+                keyPressed.replace(e.getKeyCode(), true);
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                pressedKeys.replace(e.getKeyCode(), false);
+                keyPressed.replace(e.getKeyCode(), false);
             }
         });
 
@@ -51,14 +45,8 @@ public class TetrisFrame extends JFrame {
         Timer timer = new Timer(Constants.LOOP_TIME, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                for(int key : keyList) {
-                    if(pressedKeys.get(key)) keyTimes.replace(key,1 + keyTimes.get(key));
-                    else keyTimes.replace(key, 0);
-                    System.out.println(key + ": " + keyTimes.get(key));
-                }
                 //pass in the list of currently pressed keys when running the loop
-                menuLoop.run(pressedKeys);
+                menuLoop.run(keyPressed);
             }
         });
         // Set the frame focusable for KeyListener

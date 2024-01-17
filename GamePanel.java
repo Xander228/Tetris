@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
-public class GameLoop extends JPanel {
+public class GamePanel extends JPanel {
 
     private enum GameStates {
         GENERATION_PHASE (0),
@@ -27,7 +27,7 @@ public class GameLoop extends JPanel {
     private PiecePanel piecePanel;
     private boolean hasSwap;
 
-    public GameLoop() {
+    public GamePanel() {
         this.gameState = GameStates.FALLING_PHASE;
 
         // Create an instance of the TetrisBoard class
@@ -46,7 +46,7 @@ public class GameLoop extends JPanel {
         this.hasSwap = false;
     }
 
-    public void run(HashMap<Integer, Boolean> key) {
+    public void runGameLoop(HashMap<Integer, Boolean> keyPressed) {
         switch(this.gameState){
             case GENERATION_PHASE:
                 //Set tetromino to the piece passed in, sets start location
@@ -64,7 +64,7 @@ public class GameLoop extends JPanel {
                 //If hold is pressed, set hold check true and return to GENERATION_PHASE
                 //checks for piece underneath current tetromino and sets state to LOCK_PHASE if true
                 //Hard drop skips to CLEAR_PHASE
-                //matrixPanel.update(key);
+                matrixPanel.update(keyPressed);
 
                 break;
             case LOCK_PHASE:
@@ -72,7 +72,7 @@ public class GameLoop extends JPanel {
                 //If hold is pressed, set hold check true and return to GENERATION_PHASE
                 //If piece is now able to drop revert to FALLING_PHASE
                 //If locked continue to CLEAR_PHASE
-                //matrixPanel.handleKeyPress(key);
+                matrixPanel.update(keyPressed);
                 break;
             case CLEAR_PHASE:
                 //Writes current tetromino to its location on the board and checks for lines

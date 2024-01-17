@@ -1,10 +1,22 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class Constants
 {
+    //creates a list of Keys that we wish to listen to
+    public static final int[] KEY_LIST = {
+            KeyEvent.VK_UP,
+            KeyEvent.VK_DOWN,
+            KeyEvent.VK_LEFT,
+            KeyEvent.VK_RIGHT,
+            KeyEvent.VK_SPACE,
+            KeyEvent.VK_ESCAPE,
+    };
+
     public static final int LOOP_TIME = 20;
     public static final int AUTO_MOVE_MILLIS = 500;
     public static final int AUTO_MOVE_LOOPS = AUTO_MOVE_MILLIS / LOOP_TIME;
+
     public static final int BOARD_COLS = 10;
     public static final int BOARD_ROWS = 20;
     public static final int BUFFER_ZONE = 4;
