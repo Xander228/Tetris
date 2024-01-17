@@ -9,7 +9,11 @@ public class MatrixPanel extends JPanel {
     
     //Create object variable to hold the current piece in hand
     Tetromino tetromino;
-    
+
+    //Create a counter to count the number of gameLoops elapsed since the last drop
+    private int loopsSinceDropped;
+    private boolean isSoftDropping;
+    private boolean isHardDropping;
     public MatrixPanel() {
         // Initialize components, set layout
         setPreferredSize( new Dimension(Constants.BOARD_WIDTH, 
@@ -18,11 +22,15 @@ public class MatrixPanel extends JPanel {
         board[6][12] = 3;
         board[4][10] = 5;
         board[2][15] = 7;
-        
+
+        loopsSinceDropped = 0;
+        isSoftDropping = false;
+        isHardDropping = false;
+
         initPiece();
     }
     
-    public void initPiece() {
+    private void initPiece() {
         tetromino = new Tetromino((int)(Math.random() * 6), 0, 0, true);
         tetromino.setBoardCoords(5, -1);
     }
@@ -37,9 +45,10 @@ public class MatrixPanel extends JPanel {
     
     public void update() {
         repaint();
+        loopsSinceDropped++;
     }
 
-    public void drawBoard(Graphics g) {
+    private void drawBoard(Graphics g) {
         for(int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
             for(int indexY = 0; indexY < Constants.BOARD_ROWS; indexY++) {
                 Draw.square(indexX * Constants.PIECE_SIZE, 
@@ -50,19 +59,21 @@ public class MatrixPanel extends JPanel {
         }
     }
     
-    public void handleKeyPress(HashMap<Integer, Boolean> key){
-        //left arrow pressed
-        if (key.get(KeyEvent.VK_LEFT)) tetromino.tryLeft(board);
+    private void handleKeyPress(HashMap<Integer, Boolean> key){
+
+        boolean successfulMove = false;
+        //if left arrow pressed tryLeft and if successful set successfulMove true if it's not already
+        if (key.get(KeyEvent.VK_LEFT)) successfulMove |= tetromino.tryLeft(board);
         
-        //up arrow pressed    
-        if (key.get(KeyEvent.VK_UP)) tetromino.tryRotation(board);
+        //if up arrow pressed tryRotation and if successful set successfulMove true if it's not already
+        if (key.get(KeyEvent.VK_UP)) successfulMove |= tetromino.tryRotation(board);
         
-        //right arrow pressed     
-        if (key.get(KeyEvent.VK_RIGHT)) tetromino.tryRight(board);
+        //if right arrow pressed tryRight and if successful set successfulMove true if it's not already
+        if (key.get(KeyEvent.VK_RIGHT)) successfulMove |= tetromino.tryRight(board);
         
-        //down arrow pressed     
-        if (key.get(KeyEvent.VK_DOWN)) tetromino.tryDrop(board);
-            
+        //if down arrow pressed or released set isSoftDropping to the down arrow's current state
+        isSoftDropping = key.get(KeyEvent.VK_DOWN);
+
         repaint();
     }
 }

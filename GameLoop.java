@@ -64,14 +64,15 @@ public class GameLoop extends JPanel {
                 //If hold is pressed, set hold check true and return to GENERATION_PHASE
                 //checks for piece underneath current tetromino and sets state to LOCK_PHASE if true
                 //Hard drop skips to CLEAR_PHASE
-                matrixPanel.handleKeyPress(key);
+                //matrixPanel.update(key);
+
                 break;
             case LOCK_PHASE:
                 //Allow user input to move piece right, left, rotate, and lock; force locks after x seconds
                 //If hold is pressed, set hold check true and return to GENERATION_PHASE
                 //If piece is now able to drop revert to FALLING_PHASE
                 //If locked continue to CLEAR_PHASE
-                matrixPanel.handleKeyPress(key);
+                //matrixPanel.handleKeyPress(key);
                 break;
             case CLEAR_PHASE:
                 //Writes current tetromino to its location on the board and checks for lines

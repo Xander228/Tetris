@@ -18,19 +18,22 @@ public class TetrisFrame extends JFrame {
         add(menuLoop);
         pack();
         
-
+        //creates a list of Keys that we wish to listen to
+        int[] keyList = {KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_ESCAPE};
         //create a hashmap that maps a key to a true false value to represent weather or not its pressed
         HashMap<Integer, Boolean> pressedKeys = new HashMap<Integer, Boolean>();
-        pressedKeys.put(KeyEvent.VK_UP, false);
-        pressedKeys.put(KeyEvent.VK_DOWN, false);
-        pressedKeys.put(KeyEvent.VK_LEFT, false);
-        pressedKeys.put(KeyEvent.VK_RIGHT, false);
-        pressedKeys.put(KeyEvent.VK_ESCAPE, false);
-        
+        //create a hashmap that maps a key to an integer value that represents the number of loops the key has been pressed for
+        HashMap<Integer, Integer> keyTimes = new HashMap<Integer, Integer>();
+        //adds each value of keyList to the hashmaps
+        for(int key : keyList) {
+            pressedKeys.put(key, false);
+            keyTimes.put(key, 0);
+        }
         // Set up KeyListener for user input
         addKeyListener(new KeyListener() {
             @Override
-            public void keyTyped(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {
+            }
 
             @Override
             public void keyPressed(KeyEvent e) {
@@ -45,9 +48,15 @@ public class TetrisFrame extends JFrame {
         });
 
         // Set up a Timer for the game loop
-        Timer timer = new Timer(50, new ActionListener() {
+        Timer timer = new Timer(Constants.LOOP_TIME, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                for(int key : keyList) {
+                    if(pressedKeys.get(key)) keyTimes.replace(key,1 + keyTimes.get(key));
+                    else keyTimes.replace(key, 0);
+                    System.out.println(key + ": " + keyTimes.get(key));
+                }
                 //pass in the list of currently pressed keys when running the loop
                 menuLoop.run(pressedKeys);
             }
