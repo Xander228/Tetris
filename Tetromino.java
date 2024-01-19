@@ -187,20 +187,19 @@ public class Tetromino {
         //If the desired rotation would exceed 3 it finds the next rotation which would be 0
         int desiredRotation = (pieceRotation + 1) % 4;
 
-        int[][] currentTestSet;
+        int[][] currentTestSet = switch (pieceRotation + ">>" + desiredRotation) {
+            case "0>>1" -> kickTests[0];
+            case "1>>0" -> kickTests[1];
+            case "1>>2" -> kickTests[2];
+            case "2>>1" -> kickTests[3];
+            case "2>>3" -> kickTests[4];
+            case "3>>2" -> kickTests[5];
+            case "3>>0" -> kickTests[6];
+            case "0>>3" -> kickTests[7];
+            default -> null;
+        };
 
         //Rotation change is converted into a String representation used to set the test set
-        switch(pieceRotation + ">>" + desiredRotation) {
-            case "0>>1": currentTestSet = kickTests[0]; break;
-            case "1>>0": currentTestSet = kickTests[1]; break;
-            case "1>>2": currentTestSet = kickTests[2]; break; 
-            case "2>>1": currentTestSet = kickTests[3]; break;
-            case "2>>3": currentTestSet = kickTests[4]; break;
-            case "3>>2": currentTestSet = kickTests[5]; break;
-            case "3>>0": currentTestSet = kickTests[6]; break;
-            case "0>>3": currentTestSet = kickTests[7]; break;
-            default: currentTestSet = null; break;
-        }
 
         //if a test case fails, it will continue testing until it runs out of cases, no changes are made
         //if a test case succeeds it will set the pieceRotation to the desiredRotation and apply xy offsets
