@@ -8,7 +8,7 @@ public class MatrixPanel extends JPanel {
     private int[][] board = new int[Constants.BOARD_COLS][Constants.TOTAL_BOARD_ROWS];
     
     //Create object variable to hold the current piece in hand
-    Tetromino tetromino;
+    private Tetromino tetromino;
 
     //Create a counter to count the number of gameLoops elapsed since the last drop
     private int loopsSinceDropped;
@@ -40,6 +40,15 @@ public class MatrixPanel extends JPanel {
     private void initPiece() {
         tetromino = new Tetromino((int)(Math.random() * 6), 0, 0, true);
         tetromino.setBoardCoords(5, -1);
+    }
+
+    public Tetromino getPiece() {
+        return this.tetromino;
+    }
+
+    public void setPiece(Tetromino tetromino) {
+        this.tetromino = tetromino;
+        this.initPiece();
     }
     
     @Override

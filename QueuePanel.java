@@ -33,6 +33,7 @@ public class QueuePanel extends JPanel {
         for (int i = 0; i < currentQueue.length - 1; i++) currentQueue[i] = currentQueue[i + 1];
         //pulls a new piece from the bag to store in the last slot of the queue
         currentQueue[currentQueue.length - 1] = new Tetromino(pieceBag.pullNewPiece(), 0, 0, false);
+        this.update();
         //return the first piece pulled from the queue
         return pulledPiece;
     }

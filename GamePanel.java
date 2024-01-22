@@ -52,18 +52,23 @@ public class GamePanel extends JPanel {
                 //Set tetromino to the piece passed in, sets start location
                 //If hold check is true switches hold with current piece
                 //Continues to FALLING_PHASE
+                Tetromino newPiece;
                 if(hasSwap) {
                     //swap with hold
-
+                    newPiece = piecePanel.switchPiece(matrixPanel.getPiece());
+                    if(newPiece == null) newPiece = piecePanel.getNewPiece();
                 } else {
                     //pull from queue
+                    newPiece = piecePanel.getNewPiece();
                 }
+                this.gameState = GameStates.FALLING_PHASE;
                 break;
             case FALLING_PHASE:
                 //Allow user input to move piece right, left, rotate, and drop; also drops each x seconds based on level
                 //If hold is pressed, set hold check true and return to GENERATION_PHASE
                 //checks for piece underneath current tetromino and sets state to LOCK_PHASE if true
                 //Hard drop skips to CLEAR_PHASE
+                if (keyPressed.get())
                 matrixPanel.update(keyPressed);
 
                 break;

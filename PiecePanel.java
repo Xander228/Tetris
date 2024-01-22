@@ -22,6 +22,13 @@ public class PiecePanel extends JPanel {
         add(queuePanel,BorderLayout.SOUTH);
     }
 
+    public Tetromino switchPiece(Tetromino newPiece) {
+        return holdPanel.switchPiece(newPiece);
+    }
+
+    public Tetromino getNewPiece() {
+        return queuePanel.pullFromQueue();
+    }
     public void update() {
         scorePanel.update();
         holdPanel.update();

@@ -15,12 +15,20 @@ public class HoldPanel extends JPanel {
         pieceLabel.setFont(new Font("Arial", Font.BOLD, 18));
         add(pieceLabel);
     }
-    
+
+    public Tetromino switchPiece(Tetromino newPiece) {
+        Tetromino oldPiece = this.tetromino;
+        this.tetromino = newPiece;
+        this.tetromino.setPixelCoords(Constants.PIECE_PANEL_WIDTH / 2, (int)(Constants.HOLD_PANEL_HEIGHT * 0.55));
+        this.update();
+        return oldPiece;
+    }
+
     @Override 
     public void paintComponent(Graphics g) {
         super.paintComponent(g); 
         Draw.header(g);
-        tetromino = new Tetromino(0, Constants.PIECE_PANEL_WIDTH / 2, (int)(Constants.HOLD_PANEL_HEIGHT * 0.55), false);
+        if (tetromino == null) return;
         tetromino.draw(g);
     }
     
