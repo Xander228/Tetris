@@ -20,6 +20,7 @@ public class HoldPanel extends JPanel {
         Tetromino oldPiece = this.tetromino;
         this.tetromino = newPiece;
         this.tetromino.setPixelCoords(Constants.PIECE_PANEL_WIDTH / 2, (int)(Constants.HOLD_PANEL_HEIGHT * 0.55));
+        this.tetromino.setBoardRelative(false);
         this.update();
         return oldPiece;
     }

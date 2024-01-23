@@ -11,6 +11,7 @@ public class Constants
             KeyEvent.VK_RIGHT,
             KeyEvent.VK_SPACE,
             KeyEvent.VK_ESCAPE,
+            KeyEvent.VK_SHIFT,
     };
 
     public static final int LOOP_TIME = 20;

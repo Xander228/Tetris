@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
 public class GamePanel extends JPanel {
@@ -28,7 +29,7 @@ public class GamePanel extends JPanel {
     private boolean hasSwap;
 
     public GamePanel() {
-        this.gameState = GameStates.FALLING_PHASE;
+        this.gameState = GameStates.GENERATION_PHASE;
 
         // Create an instance of the TetrisBoard class
         matrixPanel = new MatrixPanel();
@@ -61,6 +62,7 @@ public class GamePanel extends JPanel {
                     //pull from queue
                     newPiece = piecePanel.getNewPiece();
                 }
+                this.matrixPanel.setPiece(newPiece);
                 this.gameState = GameStates.FALLING_PHASE;
                 break;
             case FALLING_PHASE:
@@ -68,7 +70,11 @@ public class GamePanel extends JPanel {
                 //If hold is pressed, set hold check true and return to GENERATION_PHASE
                 //checks for piece underneath current tetromino and sets state to LOCK_PHASE if true
                 //Hard drop skips to CLEAR_PHASE
-                if (keyPressed.get())
+                if (keyPressed.get(KeyEvent.VK_SHIFT) && !hasSwap) {
+                    this.hasSwap = true;
+                    this.gameState = GameStates.GENERATION_PHASE;
+                    break;
+                }
                 matrixPanel.update(keyPressed);
 
                 break;

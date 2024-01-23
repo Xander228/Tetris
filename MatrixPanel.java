@@ -33,14 +33,8 @@ public class MatrixPanel extends JPanel {
 
         //adds each value of keyList to the hashmap
         for(int key : Constants.KEY_LIST) keyTimes.put(key, 0);
+    }
 
-        initPiece();
-    }
-    
-    private void initPiece() {
-        tetromino = new Tetromino((int)(Math.random() * 6), 0, 0, true);
-        tetromino.setBoardCoords(5, -1);
-    }
 
     public Tetromino getPiece() {
         return this.tetromino;
@@ -48,13 +42,15 @@ public class MatrixPanel extends JPanel {
 
     public void setPiece(Tetromino tetromino) {
         this.tetromino = tetromino;
-        this.initPiece();
+        this.tetromino.setBoardRelative(true);
+        this.tetromino.setBoardCoords(5, -1);
     }
     
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); 
         this.drawBoard(g);
+        if (tetromino == null) return;
         tetromino.drawGhost(board, g);
         tetromino.draw(g);
     }
@@ -77,11 +73,11 @@ public class MatrixPanel extends JPanel {
         }
     }
     
-    private void handleKeyPress(HashMap<Integer, Boolean> keyPressed){
+    private boolean handleKeyPress(HashMap<Integer, Boolean> keyPressed){
 
         if(keyPressed.get(KeyEvent.VK_SPACE)) {
             tetromino.hardDrop(board);
-            return;
+            return true;
         }
 
         for(int key : Constants.KEY_LIST) {
@@ -104,5 +100,7 @@ public class MatrixPanel extends JPanel {
         
         //if down arrow pressed or released set isSoftDropping to the down arrow's current state
         isSoftDropping = keyPressed.get(KeyEvent.VK_DOWN);
+
+        return successfulMove;
     }
 }
