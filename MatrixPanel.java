@@ -13,7 +13,6 @@ public class MatrixPanel extends JPanel {
     //Create a counter to count the number of gameLoops elapsed since the last drop
     private int loopsSinceDropped;
     private boolean isSoftDropping;
-    private boolean isHardDropping;
 
     //create a hashmap that maps a key to an integer value that represents the number of loops the key has been pressed for
     HashMap<Integer, Integer> keyTimes = new HashMap<Integer, Integer>();
@@ -29,7 +28,6 @@ public class MatrixPanel extends JPanel {
 
         loopsSinceDropped = 0;
         isSoftDropping = false;
-        isHardDropping = false;
 
         //adds each value of keyList to the hashmap
         for(int key : Constants.KEY_LIST) keyTimes.put(key, 0);
@@ -74,11 +72,6 @@ public class MatrixPanel extends JPanel {
     }
     
     private boolean handleKeyPress(HashMap<Integer, Boolean> keyPressed){
-
-        if(keyPressed.get(KeyEvent.VK_SPACE)) {
-            tetromino.hardDrop(board);
-            return true;
-        }
 
         for(int key : Constants.KEY_LIST) {
             if(keyPressed.get(key)) keyTimes.replace(key,1 + keyTimes.get(key));

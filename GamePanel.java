@@ -75,6 +75,10 @@ public class GamePanel extends JPanel {
                     this.gameState = GameStates.GENERATION_PHASE;
                     break;
                 }
+                if(keyPressed.get(KeyEvent.VK_SPACE)) {
+                    tetromino.hardDrop(board);
+                    this.gameState = GameStates.GENERATION_PHASE;
+                }
                 matrixPanel.update(keyPressed);
 
                 break;

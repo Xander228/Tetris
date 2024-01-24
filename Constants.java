@@ -15,7 +15,7 @@ public class Constants
     };
 
     public static final int LOOP_TIME = 20;
-    public static final int AUTO_MOVE_MILLIS = 500;
+    public static final int AUTO_MOVE_MILLIS = 200;
     public static final int AUTO_MOVE_LOOPS = AUTO_MOVE_MILLIS / LOOP_TIME;
 
     public static final int BOARD_COLS = 10;

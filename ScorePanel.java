@@ -17,7 +17,7 @@ public class ScorePanel extends JPanel {
     
     public void update() {
         i++;
-        scoreLabel.setText("Score: " + i + "\n helwo uwu");
+        scoreLabel.setText("Score: " + i);
         //scoreLabel.setText("key: " + key);
     }
     
