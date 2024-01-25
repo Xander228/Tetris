@@ -4,19 +4,31 @@ import java.awt.event.KeyEvent;
 public class Constants
 {
     //creates a list of Keys that we wish to listen to
+    public static final int ROTATE_KEY = KeyEvent.VK_UP;
+    public static final int DROP_KEY = KeyEvent.VK_DOWN;
+    public static final int LEFT_KEY = KeyEvent.VK_LEFT;
+    public static final int RIGHT_KEY = KeyEvent.VK_RIGHT;
+    public static final int HARD_DROP_KEY = KeyEvent.VK_SPACE;
+    public static final int HOLD_KEY = KeyEvent.VK_SHIFT;
+
+
+
+
     public static final int[] KEY_LIST = {
-            KeyEvent.VK_UP,
-            KeyEvent.VK_DOWN,
-            KeyEvent.VK_LEFT,
-            KeyEvent.VK_RIGHT,
-            KeyEvent.VK_SPACE,
+            ROTATE_KEY,
+            DROP_KEY,
+            LEFT_KEY,
+            RIGHT_KEY,
+            HARD_DROP_KEY,
+            HOLD_KEY,
             KeyEvent.VK_ESCAPE,
-            KeyEvent.VK_SHIFT,
     };
 
     public static final int LOOP_TIME = 20;
-    public static final int AUTO_MOVE_MILLIS = 200;
-    public static final int AUTO_MOVE_LOOPS = AUTO_MOVE_MILLIS / LOOP_TIME;
+    public static final int AUTO_MOVE_TIME = 200;
+    public static final int AUTO_MOVE_LOOPS = AUTO_MOVE_TIME / LOOP_TIME;
+    public static final int BASE_FALL_TIME = 750;
+    public static final int BASE_DROP_TIME = 40;
 
     public static final int BOARD_COLS = 10;
     public static final int BOARD_ROWS = 20;
