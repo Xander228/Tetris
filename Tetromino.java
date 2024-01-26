@@ -293,7 +293,7 @@ public class Tetromino {
 
     public void drawGhost(int[][] board, Graphics g) {
         int lowestY = Constants.TOTAL_BOARD_ROWS;
-        for(int i = 0; i < Constants.BOARD_ROWS - this.boardY - 1; i++) {
+        for(int i = 0; i < Constants.BOARD_ROWS - this.boardY; i++) {
             if(isOutOfBounds(this.boardX, this.boardY + i, this.pieceRotation)) {
                 lowestY = this.boardY + i - 1;
                 break;

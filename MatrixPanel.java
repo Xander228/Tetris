@@ -14,6 +14,9 @@ public class MatrixPanel extends JPanel {
     private int loopsSinceDropped;
     private boolean isSoftDropping;
 
+    private int numberOfResets;
+
+    private int moveTimer;
     //create a hashmap that maps a key to an integer value that represents the number of loops the key has been pressed for
     HashMap<Integer, Integer> keyTimes = new HashMap<Integer, Integer>();
 
@@ -28,11 +31,29 @@ public class MatrixPanel extends JPanel {
 
         loopsSinceDropped = 0;
         isSoftDropping = false;
-
+        numberOfResets = 0;
+        moveTimer = 0;
         //adds each value of keyList to the hashmap
         for(int key : Constants.KEY_LIST) keyTimes.put(key, 0);
     }
 
+
+    public void resetCounter(){
+        numberOfResets = 0;
+    }
+    public boolean canResetTimer(){
+        return numberOfResets <= Constants.MOVES_BEFORE_LOCK;
+    }
+    public void resetTimer(){
+        moveTimer = 0;
+        numberOfResets++;
+    }
+    public void incrementTimer(){
+        moveTimer++;
+    }
+    public boolean isTimerElapsed(){
+        return moveTimer > Constants.MOVES_LOOP_LIMIT;
+    }
 
     public Tetromino getPiece() {
         return this.tetromino;

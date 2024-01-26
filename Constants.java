@@ -30,6 +30,10 @@ public class Constants
     public static final int BASE_FALL_TIME = 1000;
     public static final int BASE_DROP_TIME = BASE_FALL_TIME / 20;
 
+    public static final int MOVES_BEFORE_LOCK = 15;
+    public static final int MOVES_TIME_LIMIT = 500;
+    public static final int MOVES_LOOP_LIMIT = MOVES_TIME_LIMIT / LOOP_TIME;
+
     public static final int BOARD_COLS = 10;
     public static final int BOARD_ROWS = 20;
     public static final int BUFFER_ZONE = 4;
