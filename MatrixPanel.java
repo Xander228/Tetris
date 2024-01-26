@@ -44,7 +44,7 @@ public class MatrixPanel extends JPanel {
         this.tetromino.setBoardCoords(5, -1);
     }
 
-    public boolean fall(int level){
+    public boolean shouldFall(int level){
         double dropMultiplier = isDropping ?
                  Constants.BASE_DROP_TIME :
                  Constants.BASE_FALL_TIME;
@@ -52,10 +52,10 @@ public class MatrixPanel extends JPanel {
 
         if(loopsSinceDropped >= dropLoops) {
             loopsSinceDropped = 0;
-            return tetromino.tryDrop(board);
+            return true;
         }
         loopsSinceDropped++;
-        return true;
+        return false;
     }
     public void hardDrop(){
         tetromino.hardDrop(board);
@@ -72,8 +72,6 @@ public class MatrixPanel extends JPanel {
     
     public void update(HashMap<Integer, Boolean> key) {
         handleKeyPress(key);
-        loopsSinceDropped++;
-
         repaint();
     }
 
@@ -88,7 +86,7 @@ public class MatrixPanel extends JPanel {
         }
     }
     
-    private boolean handleKeyPress(HashMap<Integer, Boolean> keyPressed){
+    public boolean handleKeyPress(HashMap<Integer, Boolean> keyPressed){
 
         for(int key : Constants.KEY_LIST) {
             if(keyPressed.get(key)) keyTimes.replace(key,1 + keyTimes.get(key));

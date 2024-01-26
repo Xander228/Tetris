@@ -27,8 +27,8 @@ public class Constants
     public static final int LOOP_TIME = 20;
     public static final int AUTO_MOVE_TIME = 200;
     public static final int AUTO_MOVE_LOOPS = AUTO_MOVE_TIME / LOOP_TIME;
-    public static final int BASE_FALL_TIME = 750;
-    public static final int BASE_DROP_TIME = 40;
+    public static final int BASE_FALL_TIME = 1000;
+    public static final int BASE_DROP_TIME = BASE_FALL_TIME / 20;
 
     public static final int BOARD_COLS = 10;
     public static final int BOARD_ROWS = 20;

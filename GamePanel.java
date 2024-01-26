@@ -80,8 +80,8 @@ public class GamePanel extends JPanel {
                     this.gameState = GameStates.CLEAR_PHASE;
                 }
                 matrixPanel.fall(1);
-                matrixPanel.update(keyPressed);
-
+                matrixPanel.handleKeyPress(keyPressed);
+                matrixPanel.repaint();
                 break;
             case LOCK_PHASE:
                 //Allow user input to move piece right, left, rotate, and lock; force locks after x seconds
@@ -92,6 +92,8 @@ public class GamePanel extends JPanel {
                     matrixPanel.hardDrop();
                     this.gameState = GameStates.CLEAR_PHASE;
                 }
+
+
                 matrixPanel.update(keyPressed);
                 break;
             case CLEAR_PHASE:
