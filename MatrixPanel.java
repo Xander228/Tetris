@@ -12,7 +12,7 @@ public class MatrixPanel extends JPanel {
 
     //Create a counter to count the number of gameLoops elapsed since the last drop
     private int loopsSinceDropped;
-    private boolean isDropping;
+    private boolean isSoftDropping;
 
     //create a hashmap that maps a key to an integer value that represents the number of loops the key has been pressed for
     HashMap<Integer, Integer> keyTimes = new HashMap<Integer, Integer>();
@@ -27,7 +27,7 @@ public class MatrixPanel extends JPanel {
         board[2][15] = 7;
 
         loopsSinceDropped = 0;
-        isDropping = false;
+        isSoftDropping = false;
 
         //adds each value of keyList to the hashmap
         for(int key : Constants.KEY_LIST) keyTimes.put(key, 0);
@@ -45,7 +45,7 @@ public class MatrixPanel extends JPanel {
     }
 
     public boolean shouldFall(int level){
-        double dropMultiplier = isDropping ?
+        double dropMultiplier = isSoftDropping ?
                  Constants.BASE_DROP_TIME :
                  Constants.BASE_FALL_TIME;
         int dropLoops = (int)(dropMultiplier * Math.pow((0.8-((level-1)*0.007)),(level-1))/Constants.LOOP_TIME);
@@ -57,6 +57,11 @@ public class MatrixPanel extends JPanel {
         loopsSinceDropped++;
         return false;
     }
+
+    public boolean drop(){
+        return tetromino.tryDrop(board);
+    }
+
     public void hardDrop(){
         tetromino.hardDrop(board);
     }
@@ -107,7 +112,7 @@ public class MatrixPanel extends JPanel {
             successfulMove |= tetromino.tryRotation(board);
         
         //if down arrow pressed or released set isSoftDropping to the down arrow's current state
-        isDropping = keyPressed.get(KeyEvent.VK_DOWN);
+        isSoftDropping = keyPressed.get(KeyEvent.VK_DOWN);
 
         return successfulMove;
     }

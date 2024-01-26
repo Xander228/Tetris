@@ -79,8 +79,18 @@ public class GamePanel extends JPanel {
                     matrixPanel.hardDrop();
                     this.gameState = GameStates.CLEAR_PHASE;
                 }
-                matrixPanel.fall(1);
+
                 matrixPanel.handleKeyPress(keyPressed);
+
+                if(matrixPanel.shouldFall(1)){
+                    if(matrixPanel.drop()){
+                        //score++
+                    } else {
+                        this.gameState = GameStates.LOCK_PHASE;
+                        break;
+                    }
+                }
+
                 matrixPanel.repaint();
                 break;
             case LOCK_PHASE:
@@ -93,13 +103,20 @@ public class GamePanel extends JPanel {
                     this.gameState = GameStates.CLEAR_PHASE;
                 }
 
-
-                matrixPanel.update(keyPressed);
+                if(matrixPanel.handleKeyPress(keyPressed)){
+                    if(matrixPanel.drop()){
+                        //score++
+                        this.gameState = GameStates.FALLING_PHASE;
+                        break;
+                    }
+                }
+                matrixPanel.repaint();
                 break;
             case CLEAR_PHASE:
                 //Writes current tetromino to its location on the board and checks for lines
                 //Clears lines and tallies them
                 //Continues to UPDATE_PHASE
+                this.gameState = GameStates.GENERATION_PHASE;
                 break;
             case UPDATE_PHASE:
                 //Updates score, lines, and level
