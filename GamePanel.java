@@ -9,8 +9,7 @@ public class GamePanel extends JPanel {
         GENERATION_PHASE (0),
         FALLING_PHASE (1),
         LOCK_PHASE (2),
-        CLEAR_PHASE (3),
-        UPDATE_PHASE (4);
+        CLEAR_PHASE (3);
 
         private final int type;
         GameStates(int typeAsInt) {
@@ -47,7 +46,7 @@ public class GamePanel extends JPanel {
         this.hasSwap = false;
     }
 
-    public void runGameLoop(HashMap<Integer, Boolean> keyPressed) {
+    public void runGameLoop(HashMap<Integer, Integer> keyPressed) {
         switch(this.gameState){
             case GENERATION_PHASE:
                 //Set tetromino to the piece passed in, sets start location
@@ -70,12 +69,12 @@ public class GamePanel extends JPanel {
                 //If hold is pressed, set hold check true and return to GENERATION_PHASE
                 //checks for piece underneath current tetromino and sets state to LOCK_PHASE if true
                 //Hard drop skips to CLEAR_PHASE
-                if (keyPressed.get(Constants.HOLD_KEY) && !hasSwap) {
+                if (keyPressed.get(Constants.HOLD_KEY) == 1 && !hasSwap) {
                     this.hasSwap = true;
                     this.gameState = GameStates.GENERATION_PHASE;
                     break;
                 }
-                if(keyPressed.get(Constants.HARD_DROP_KEY)) {
+                if(keyPressed.get(Constants.HARD_DROP_KEY) == 1) {
                     matrixPanel.hardDrop();
                     this.gameState = GameStates.CLEAR_PHASE;
                 }
@@ -101,12 +100,12 @@ public class GamePanel extends JPanel {
                 //If piece is now able to drop revert to FALLING_PHASE
                 //If locked continue to CLEAR_PHASE
 
-                if (keyPressed.get(Constants.HOLD_KEY) && !hasSwap) {
+                if (keyPressed.get(Constants.HOLD_KEY) == 1 && !hasSwap) {
                     this.hasSwap = true;
                     this.gameState = GameStates.GENERATION_PHASE;
                     break;
                 }
-                if(keyPressed.get(Constants.HARD_DROP_KEY)) {
+                if(keyPressed.get(Constants.HARD_DROP_KEY) == 1) {
                     matrixPanel.hardDrop();
                     this.gameState = GameStates.CLEAR_PHASE;
                 }
@@ -131,12 +130,8 @@ public class GamePanel extends JPanel {
                 //Writes current tetromino to its location on the board and checks for lines
                 //Clears lines and tallies them
                 //Continues to UPDATE_PHASE
+                this.hasSwap = false;
                 this.gameState = GameStates.GENERATION_PHASE;
-                break;
-            case UPDATE_PHASE:
-                //Updates score, lines, and level
-                //Resets hold check
-                //Continues to GENERATION_PHASE
                 break;
         }
     }

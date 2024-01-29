@@ -20,10 +20,12 @@ public class TetrisFrame extends JFrame {
         
         //create a hashmap that maps a key to a true false value to represent weather or not its pressed
         HashMap<Integer, Boolean> keyPressed = new HashMap<Integer, Boolean>();
-        
+        HashMap<Integer, Integer> keyTimes = new HashMap<Integer, Integer>();
+
         //adds each value of keyList to the hashmap
         for(int key : Constants.KEY_LIST) keyPressed.put(key, false);
-        
+        for(int key : Constants.KEY_LIST) keyTimes.put(key, 0);
+
         // Set up KeyListener for user input
         addKeyListener(new KeyListener() {
             @Override
@@ -45,8 +47,13 @@ public class TetrisFrame extends JFrame {
         Timer timer = new Timer(Constants.LOOP_TIME, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                for(int key : Constants.KEY_LIST) {
+                    if(keyPressed.get(key)) keyTimes.replace(key,1 + keyTimes.get(key));
+                    else keyTimes.replace(key, 0);
+                }
+
                 //pass in the list of currently pressed keys when running the loop
-                menuLoop.run(keyPressed);
+                menuLoop.run(keyTimes);
             }
         });
         // Set the frame focusable for KeyListener
