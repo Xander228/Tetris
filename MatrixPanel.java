@@ -17,7 +17,6 @@ public class MatrixPanel extends JPanel {
     private int numberOfResets;
 
     private int moveTimer;
-    //create a hashmap that maps a key to an integer value that represents the number of loops the key has been pressed for
 
 
     public MatrixPanel() {
@@ -41,6 +40,14 @@ public class MatrixPanel extends JPanel {
     }
     public boolean canResetTimer(){
         return numberOfResets <= Constants.MOVES_BEFORE_LOCK;
+    }
+
+    public void setLowestLock () {
+        tetromino.setLowestLock();
+    }
+
+    public boolean canResetCounter () {
+        return tetromino.canResetCounter();
     }
     public void resetTimer(){
         moveTimer = 0;

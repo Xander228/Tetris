@@ -113,6 +113,8 @@ public class Tetromino {
     private boolean boardRelative;
     private int boardX, boardY;
     private int pixelX, pixelY;
+
+    private int lowestLock;
     
     private int[] centerOffsets;
     private int[][][] kickTests;
@@ -125,7 +127,9 @@ public class Tetromino {
         this.boardRelative = boardRelative;
         if (boardRelative)  setBoardCoords(x, y);
         else                setPixelCoords(x, y);
-        
+
+        lowestLock = 0;
+
         //set the center offset used in pixel relative mode aka boardRelative == false
         switch(this.type){
             default:
@@ -160,6 +164,14 @@ public class Tetromino {
     public void updatePixelCoords() {
         this.pixelX = Constants.PIECE_SIZE * this.boardX;
         this.pixelY = Constants.PIECE_SIZE * this.boardY;
+    }
+
+    public void setLowestLock(){
+        lowestLock = boardY;
+    }
+
+    public boolean canResetCounter() {
+        return lowestLock < boardY;
     }
     
     //returns true if move is successful

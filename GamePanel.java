@@ -85,8 +85,10 @@ public class GamePanel extends JPanel {
                     if(matrixPanel.drop()){
                         //score++
                     } else {
-                        matrixPanel.resetTimer();
-                        matrixPanel.resetCounter();
+                        if(matrixPanel.canResetCounter()) {
+                            matrixPanel.resetTimer();
+                            matrixPanel.resetCounter();
+                        }
                         this.gameState = GameStates.LOCK_PHASE;
                         break;
                     }
@@ -99,7 +101,7 @@ public class GamePanel extends JPanel {
                 //If hold is pressed, set hold check true and return to GENERATION_PHASE
                 //If piece is now able to drop revert to FALLING_PHASE
                 //If locked continue to CLEAR_PHASE
-
+                matrixPanel.setLowestLock();
                 if (keyPressed.get(Constants.HOLD_KEY) == 1 && !hasSwap) {
                     this.hasSwap = true;
                     this.gameState = GameStates.GENERATION_PHASE;
