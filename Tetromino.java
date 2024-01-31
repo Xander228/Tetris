@@ -167,11 +167,11 @@ public class Tetromino {
     }
 
     public void setLowestLock(){
-        lowestLock = boardY;
+        lowestLock = Math.min(boardY, lowestLock);
     }
 
     public boolean canResetCounter() {
-        return lowestLock < boardY;
+        return lowestLock > boardY;
     }
     
     //returns true if move is successful
