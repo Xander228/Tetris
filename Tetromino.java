@@ -173,7 +173,16 @@ public class Tetromino {
     public boolean canResetCounter() {
         return lowestLock > boardY;
     }
-    
+
+    public void lock(int[][] board) {
+        for (int indexY = 0; indexY < 4; indexY++) {
+            for (int indexX = 0; indexX < 4; indexX++) {
+                int cell = tetrominos[this.type.toInt()][indexY][this.pieceRotation][indexX];
+                if (cell == 0) continue;
+                board[boardX - indexX][boardY - indexY] = cell;
+            }
+        }
+    }
     //returns true if move is successful
     public boolean tryLeft(int[][] board){
         if(isOutOfBounds(this.boardX - 1, this.boardY)) return false;

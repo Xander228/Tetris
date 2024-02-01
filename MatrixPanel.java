@@ -101,6 +101,9 @@ public class MatrixPanel extends JPanel {
         tetromino.draw(g);
     }
 
+    public void lockTetromino() {
+        tetromino.lock(board);
+    }
     private void drawBoard(Graphics g) {
         for(int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
             for(int indexY = 0; indexY < Constants.BOARD_ROWS; indexY++) {

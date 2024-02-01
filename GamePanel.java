@@ -132,6 +132,7 @@ public class GamePanel extends JPanel {
                 //Writes current tetromino to its location on the board and checks for lines
                 //Clears lines and tallies them
                 //Continues to UPDATE_PHASE
+                matrixPanel.lockTetromino();
                 this.hasSwap = false;
                 this.gameState = GameStates.GENERATION_PHASE;
                 break;
