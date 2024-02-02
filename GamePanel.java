@@ -134,6 +134,12 @@ public class GamePanel extends JPanel {
                 //Continues to UPDATE_PHASE
                 matrixPanel.lockTetromino();
                 this.hasSwap = false;
+
+
+
+
+
+
                 this.gameState = GameStates.GENERATION_PHASE;
                 break;
         }

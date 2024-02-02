@@ -179,7 +179,7 @@ public class Tetromino {
             for (int indexX = 0; indexX < 4; indexX++) {
                 int cell = tetrominos[this.type.toInt()][indexY][this.pieceRotation][indexX];
                 if (cell == 0) continue;
-                board[boardX - indexX][boardY - indexY] = cell;
+                board[boardX + indexX][boardY + indexY + Constants.BUFFER_ZONE] = cell;
             }
         }
     }

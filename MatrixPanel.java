@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.util.HashMap;
 
 public class MatrixPanel extends JPanel {
-    //Game board array formatted in cols x rows (y,x)
+    //Game board array formatted in cols x rows (x,y)
     private int[][] board = new int[Constants.BOARD_COLS][Constants.TOTAL_BOARD_ROWS];
     
     //Create object variable to hold the current piece in hand
@@ -23,10 +23,6 @@ public class MatrixPanel extends JPanel {
         // Initialize components, set layout
         setPreferredSize( new Dimension(Constants.BOARD_WIDTH, 
                                         Constants.BOARD_HEIGHT));
-        board[0][0] = 1;
-        board[6][12] = 3;
-        board[4][10] = 5;
-        board[2][15] = 7;
 
         loopsSinceDropped = 0;
         isSoftDropping = false;
@@ -103,6 +99,18 @@ public class MatrixPanel extends JPanel {
 
     public void lockTetromino() {
         tetromino.lock(board);
+    }
+
+    public boolean rowsToClear() {
+
+    }
+
+    public void identifyRows() {
+
+    }
+
+    public void clearRows(){
+        
     }
     private void drawBoard(Graphics g) {
         for(int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
