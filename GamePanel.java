@@ -46,7 +46,7 @@ public class GamePanel extends JPanel {
         this.hasSwap = false;
     }
 
-    public void runGameLoop(HashMap<Integer, Integer> keyPressed) {
+    public void run(HashMap<Integer, Integer> keyPressed) {
         switch(this.gameState){
             case GENERATION_PHASE:
                 //Set tetromino to the piece passed in, sets start location
@@ -134,7 +134,15 @@ public class GamePanel extends JPanel {
                 //Continues to UPDATE_PHASE
                 matrixPanel.lockTetromino();
                 this.hasSwap = false;
-
+                if (matrixPanel.identifyRows()) {
+                    matrixPanel.repaint();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();  //set the flag back to true
+                    }
+                    matrixPanel.clearRows();
+                }
 
 
 

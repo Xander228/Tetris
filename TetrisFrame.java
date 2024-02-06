@@ -3,7 +3,7 @@ import java.awt.event.*;
 import java.util.HashMap;
 
 public class TetrisFrame extends JFrame {
-    private MenuLoop menuLoop;
+    private GamePanel gamePanel;
 
     
     public TetrisFrame() {
@@ -14,8 +14,8 @@ public class TetrisFrame extends JFrame {
 
         //menuLoop is a panel within the frame that contains all screenPanels
         //menuLoop switches the current panel based on the screenStates
-        menuLoop = new MenuLoop();
-        add(menuLoop);
+        gamePanel = new GamePanel();
+        add(gamePanel);
         pack();
         
         //create a hashmap that maps a key to a true false value to represent weather or not its pressed
@@ -53,7 +53,7 @@ public class TetrisFrame extends JFrame {
                 }
 
                 //pass in the list of currently pressed keys when running the loop
-                menuLoop.run(keyTimes);
+                gamePanel.run(keyTimes);
             }
         });
         // Set the frame focusable for KeyListener

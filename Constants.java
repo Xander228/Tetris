@@ -21,7 +21,6 @@ public class Constants
             RIGHT_KEY,
             HARD_DROP_KEY,
             HOLD_KEY,
-            KeyEvent.VK_ESCAPE,
     };
 
     public static final int LOOP_TIME = 20;

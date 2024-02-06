@@ -101,17 +101,51 @@ public class MatrixPanel extends JPanel {
         tetromino.lock(board);
     }
 
-    public boolean rowsToClear() {
 
+    public boolean identifyRows(){
+        boolean rowsToClear = false;
+        for (int indexY = Constants.TOTAL_BOARD_ROWS - 1; indexY >= Constants.BUFFER_ZONE; indexY--) {
+            boolean rowFull = true;
+            boolean rowEmpty = true;
+            for (int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
+                if (board[indexX][indexY] == 0) rowFull = false;
+                if (board[indexX][indexY] != 0) rowEmpty = false;
+            }
+            if (rowEmpty) break;
+            if (rowFull) {
+                for (int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) board[indexX][indexY] = 8;
+                rowsToClear = true;
+            }
+        }
+        return rowsToClear;
     }
 
-    public void identifyRows() {
-
+    public int clearRows() {
+        int lines = 0;
+        for (int indexY = Constants.BUFFER_ZONE; indexY < Constants.TOTAL_BOARD_ROWS; indexY++) {
+            boolean rowFull = true;
+            for (int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
+                if (board[indexX][indexY] == 0) {
+                    rowFull = false;
+                    break;
+                }
+            }
+            if (rowFull) {
+                for (int writeY = indexY; writeY >= 0; writeY--) {
+                    boolean rowFinish = true;
+                    for (int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
+                        board[indexX][writeY] = board[indexX][writeY - 1];
+                        if (board[indexX][writeY + 1] != 0) rowFinish = false;
+                    }
+                    if (rowFinish) break;
+                }
+                lines++;
+            }
+        }
+        return lines;
     }
 
-    public void clearRows(){
-        
-    }
+
     private void drawBoard(Graphics g) {
         for(int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
             for(int indexY = 0; indexY < Constants.BOARD_ROWS; indexY++) {
