@@ -4,7 +4,8 @@ import java.awt.event.KeyEvent;
 public class Constants
 {
     //creates a list of Keys that we wish to listen to
-    public static final int ROTATE_KEY = KeyEvent.VK_UP;
+    public static final int ROTATE_CW_KEY = KeyEvent.VK_UP;
+    public static final int ROTATE_CCW_KEY = KeyEvent.VK_UP;
     public static final int DROP_KEY = KeyEvent.VK_DOWN;
     public static final int LEFT_KEY = KeyEvent.VK_LEFT;
     public static final int RIGHT_KEY = KeyEvent.VK_RIGHT;
@@ -25,8 +26,10 @@ public class Constants
 
     public static final int LOOP_TIME = 20;
     public static final int AUTO_MOVE_TIME = 200;
-    public static final int AUTO_MOVE_LOOPS = AUTO_MOVE_TIME / LOOP_TIME;
     public static final int BASE_FALL_TIME = 1000;
+    public static final int CLEAR_TIME = 200;
+    public static final int AUTO_MOVE_LOOPS = AUTO_MOVE_TIME / LOOP_TIME;
+    public static final int CLEAR_LOOPS = CLEAR_TIME / LOOP_TIME;
     public static final int BASE_DROP_TIME = BASE_FALL_TIME / 20;
 
     public static final int MOVES_BEFORE_LOCK = 15;
@@ -57,6 +60,7 @@ public class Constants
     
     //Color[0] defines board colors
     //Color[1 - 7] define piece colors
+    //Color[8] defines clear colors
     public static final  Color[][] COLORS = {
         {new Color((int)0x212121),new Color((int)0x393939),new Color((int)0x070707),new Color((int)0x171717),new Color((int)0x2f2f2f)},
         {new Color((int)0xff0000),new Color((int)0xff8888),new Color((int)0x950000),new Color((int)0xca0000),new Color((int)0xff4040)},
@@ -65,7 +69,8 @@ public class Constants
         {new Color((int)0x00ff00),new Color((int)0xa6ffa6),new Color((int)0x009500),new Color((int)0x00ca00),new Color((int)0x77ff77)},
         {new Color((int)0x00ffff),new Color((int)0xaeffff),new Color((int)0x009595),new Color((int)0x00caca),new Color((int)0x77ffff)},
         {new Color((int)0x0000ff),new Color((int)0x8a8aff),new Color((int)0x000095),new Color((int)0x0000ca),new Color((int)0x4646ff)},
-        {new Color((int)0xff00ff),new Color((int)0xff93ff),new Color((int)0x950095),new Color((int)0xca00ca),new Color((int)0xff5eff)}
+        {new Color((int)0xff00ff),new Color((int)0xff93ff),new Color((int)0x950095),new Color((int)0xca00ca),new Color((int)0xff5eff)},
+        {new Color((int)0xf2f2f2),new Color((int)0xffffff),new Color((int)0x959595),new Color((int)0xcacaca),new Color((int)0xdddddd)},
     };
     
 }

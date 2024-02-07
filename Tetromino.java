@@ -118,6 +118,7 @@ public class Tetromino {
     
     private int[] centerOffsets;
     private int[][][] kickTests;
+    private boolean visible;
     
     //type is a number 0 - 6 that refers to the type of tetromino
     public Tetromino(int type, int x, int y, boolean boardRelative) {
@@ -129,6 +130,7 @@ public class Tetromino {
         else                setPixelCoords(x, y);
 
         lowestLock = 0;
+        visible = true;
 
         //set the center offset used in pixel relative mode aka boardRelative == false
         switch(this.type){
@@ -200,13 +202,26 @@ public class Tetromino {
         updatePixelCoords();
         return true;
     }
-    
+
+    public boolean tryRotatingCW(int[][] board){
+        return tryRotation(false,board);
+    }
+
+    public boolean tryRotatingCCW(int[][] board){
+        return tryRotation(true,board);
+    }
+
+
+
+
+
+
     //returns true if move is successful
-    public boolean tryRotation(int[][] board){
+    public boolean tryRotation(boolean isCCW, int[][] board){
         //O pieces can't be rotated and thus can't move rotationally
         if(this.type.equals(TetrominoType.O)) return false;
         //If the desired rotation would exceed 3 it finds the next rotation which would be 0
-        int desiredRotation = (pieceRotation + 1) % 4;
+        int desiredRotation = (pieceRotation + (isCCW ? -1 : 1)) % 4;
 
         int[][] currentTestSet = switch (pieceRotation + ">>" + desiredRotation) {
             case "0>>1" -> kickTests[0];
@@ -297,8 +312,12 @@ public class Tetromino {
     public boolean isOutOfBounds(int x, int y) {
         return isOutOfBounds(x, y, this.pieceRotation);
     }
-        
+
+    public void hide() {
+        visible = false;
+    }
     public void draw(Graphics g) {
+        if (!visible) return;
         int xOffset = boardRelative ? 0 : centerOffsets[0];
         int yOffset = boardRelative ? 0 : centerOffsets[1];
         for (int indexY = 0; indexY < 4; indexY++) {
@@ -313,6 +332,7 @@ public class Tetromino {
     }
 
     public void drawGhost(int[][] board, Graphics g) {
+        if (!visible) return;
         int lowestY = Constants.TOTAL_BOARD_ROWS;
         for(int i = 0; i < Constants.BOARD_ROWS - this.boardY; i++) {
             if(isOutOfBounds(this.boardX, this.boardY + i, this.pieceRotation)) {

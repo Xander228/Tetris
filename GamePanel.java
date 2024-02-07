@@ -9,7 +9,8 @@ public class GamePanel extends JPanel {
         GENERATION_PHASE (0),
         FALLING_PHASE (1),
         LOCK_PHASE (2),
-        CLEAR_PHASE (3);
+        CLEAR_PHASE (3),
+        UPDATE_PHASE (4);
 
         private final int type;
         GameStates(int typeAsInt) {
@@ -64,6 +65,7 @@ public class GamePanel extends JPanel {
                 this.matrixPanel.setPiece(newPiece);
                 this.gameState = GameStates.FALLING_PHASE;
                 break;
+
             case FALLING_PHASE:
                 //Allow user input to move piece right, left, rotate, and drop; also drops each x seconds based on level
                 //If hold is pressed, set hold check true and return to GENERATION_PHASE
@@ -96,6 +98,7 @@ public class GamePanel extends JPanel {
 
                 matrixPanel.repaint();
                 break;
+
             case LOCK_PHASE:
                 //Allow user input to move piece right, left, rotate, and lock; force locks after x seconds
                 //If hold is pressed, set hold check true and return to GENERATION_PHASE
@@ -128,27 +131,25 @@ public class GamePanel extends JPanel {
                 matrixPanel.incrementTimer();
                 matrixPanel.repaint();
                 break;
+
             case CLEAR_PHASE:
-                //Writes current tetromino to its location on the board and checks for lines
-                //Clears lines and tallies them
+                //Writes current tetromino to its location on the board
                 //Continues to UPDATE_PHASE
                 matrixPanel.lockTetromino();
                 this.hasSwap = false;
+                this.gameState = GameStates.UPDATE_PHASE;
+                break;
+
+            case UPDATE_PHASE:
+                //checks for lines & clears lines and tallies them
+                //Continues to UPDATE_PHASE
                 if (matrixPanel.identifyRows()) {
                     matrixPanel.repaint();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();  //set the flag back to true
+                    if(matrixPanel.canClear()) {
+                        matrixPanel.clearRows();
+                        this.gameState = GameStates.GENERATION_PHASE;
                     }
-                    matrixPanel.clearRows();
-                }
-
-
-
-
-
-                this.gameState = GameStates.GENERATION_PHASE;
+                } else this.gameState = GameStates.GENERATION_PHASE;
                 break;
         }
     }

@@ -18,6 +18,8 @@ public class MatrixPanel extends JPanel {
 
     private int moveTimer;
 
+    private int loopsSinceIdentified;
+
 
     public MatrixPanel() {
         // Initialize components, set layout
@@ -28,6 +30,7 @@ public class MatrixPanel extends JPanel {
         isSoftDropping = false;
         numberOfResets = 0;
         moveTimer = 0;
+        loopsSinceIdentified = 0;
     }
 
 
@@ -99,6 +102,7 @@ public class MatrixPanel extends JPanel {
 
     public void lockTetromino() {
         tetromino.lock(board);
+        tetromino.hide();
     }
 
 
@@ -135,23 +139,28 @@ public class MatrixPanel extends JPanel {
                     boolean rowFinish = true;
                     for (int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
                         board[indexX][writeY] = board[indexX][writeY - 1];
-                        if (board[indexX][writeY + 1] != 0) rowFinish = false;
+                        if (board[indexX][writeY] != 0) rowFinish = false;
                     }
                     if (rowFinish) break;
                 }
                 lines++;
             }
         }
+        loopsSinceIdentified = 0;
         return lines;
     }
 
+    public boolean canClear() {
+        loopsSinceIdentified++;
+        return loopsSinceIdentified >= Constants.CLEAR_LOOPS;
+    }
 
     private void drawBoard(Graphics g) {
         for(int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
             for(int indexY = 0; indexY < Constants.BOARD_ROWS; indexY++) {
                 Draw.square(indexX * Constants.PIECE_SIZE, 
                             indexY * Constants.PIECE_SIZE, 
-                            board[indexX][indexY + Constants.BUFFER_ZONE], 
+                            board[indexX][indexY + Constants.BUFFER_ZONE],
                             g);
             }   
         }
@@ -170,10 +179,14 @@ public class MatrixPanel extends JPanel {
         if (keyTimes.get(KeyEvent.VK_RIGHT) == 1 || keyTimes.get(KeyEvent.VK_RIGHT) >= Constants.AUTO_MOVE_LOOPS)
             successfulMove |= tetromino.tryRight(board);
 
-        //if up arrow pressed tryRotation and if successful set successfulMove true if it's not already
+        //if up arrow pressed tryRotatingCW and if successful set successfulMove true if it's not already
         if (keyTimes.get(KeyEvent.VK_UP) == 1 )
-            successfulMove |= tetromino.tryRotation(board);
-        
+            successfulMove |= tetromino.tryRotatingCW(board);
+
+        //if up arrow pressed tryRotatingCW and if successful set successfulMove true if it's not already
+        if (keyTimes.get(KeyEvent.VK_LCTRL) == 1 )
+            successfulMove |= tetromino.tryRotatingCCW(board);
+
         //if down arrow pressed or released set isSoftDropping to the down arrow's current state
         isSoftDropping = keyTimes.get(KeyEvent.VK_DOWN) >= 1;
 
