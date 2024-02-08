@@ -221,7 +221,7 @@ public class Tetromino {
         //O pieces can't be rotated and thus can't move rotationally
         if(this.type.equals(TetrominoType.O)) return false;
         //If the desired rotation would exceed 3 it finds the next rotation which would be 0
-        int desiredRotation = (pieceRotation + (isCCW ? -1 : 1)) % 4;
+        int desiredRotation = (pieceRotation + (isCCW ? -1 : 1) + 4) % 4;
 
         int[][] currentTestSet = switch (pieceRotation + ">>" + desiredRotation) {
             case "0>>1" -> kickTests[0];

@@ -105,6 +105,7 @@ public class GamePanel extends JPanel {
                 //If piece is now able to drop revert to FALLING_PHASE
                 //If locked continue to CLEAR_PHASE
                 matrixPanel.setLowestLock();
+
                 if (keyPressed.get(Constants.HOLD_KEY) == 1 && !hasSwap) {
                     this.hasSwap = true;
                     this.gameState = GameStates.GENERATION_PHASE;

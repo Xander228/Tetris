@@ -5,7 +5,7 @@ public class Constants
 {
     //creates a list of Keys that we wish to listen to
     public static final int ROTATE_CW_KEY = KeyEvent.VK_UP;
-    public static final int ROTATE_CCW_KEY = KeyEvent.VK_UP;
+    public static final int ROTATE_CCW_KEY = KeyEvent.VK_CONTROL;
     public static final int DROP_KEY = KeyEvent.VK_DOWN;
     public static final int LEFT_KEY = KeyEvent.VK_LEFT;
     public static final int RIGHT_KEY = KeyEvent.VK_RIGHT;
@@ -16,7 +16,8 @@ public class Constants
 
 
     public static final int[] KEY_LIST = {
-            ROTATE_KEY,
+            ROTATE_CW_KEY,
+            ROTATE_CCW_KEY,
             DROP_KEY,
             LEFT_KEY,
             RIGHT_KEY,
@@ -32,8 +33,8 @@ public class Constants
     public static final int CLEAR_LOOPS = CLEAR_TIME / LOOP_TIME;
     public static final int BASE_DROP_TIME = BASE_FALL_TIME / 20;
 
-    public static final int MOVES_BEFORE_LOCK = 15;
-    public static final int MOVES_TIME_LIMIT = 500;
+    public static final int MOVES_BEFORE_LOCK = 5;
+    public static final int MOVES_TIME_LIMIT = 140;
     public static final int MOVES_LOOP_LIMIT = MOVES_TIME_LIMIT / LOOP_TIME;
 
     public static final int BOARD_COLS = 10;

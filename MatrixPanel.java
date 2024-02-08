@@ -184,7 +184,7 @@ public class MatrixPanel extends JPanel {
             successfulMove |= tetromino.tryRotatingCW(board);
 
         //if up arrow pressed tryRotatingCW and if successful set successfulMove true if it's not already
-        if (keyTimes.get(KeyEvent.VK_LCTRL) == 1 )
+        if (keyTimes.get(KeyEvent.VK_CONTROL) == 1 )
             successfulMove |= tetromino.tryRotatingCCW(board);
 
         //if down arrow pressed or released set isSoftDropping to the down arrow's current state
