@@ -98,6 +98,7 @@ public class MatrixPanel extends JPanel {
         if (tetromino == null) return;
         tetromino.drawGhost(board, g);
         tetromino.draw(g);
+        Draw.gameOver(0,0,0,g);
     }
 
     public void lockTetromino() {

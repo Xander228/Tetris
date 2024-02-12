@@ -47,7 +47,10 @@ public class Constants
     public static final int PIECE_EDGE_WIDTH = PIECE_SIZE / 7;
     public static final int BOARD_WIDTH = BOARD_COLS * PIECE_SIZE;
     public static final int BOARD_HEIGHT = BOARD_ROWS * PIECE_SIZE;
-    
+
+    public static final int GAMEOVER_HEIGHT = 200;
+    public static final int GAMEOVER_WIDTH = 400;
+
     public static final int HEADER_HEIGHT = 30;
     public static final int PIECE_PANEL_WIDTH = 200;
     public static final int SCORE_PANEL_HEIGHT = 80;

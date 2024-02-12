@@ -10,7 +10,8 @@ public class GamePanel extends JPanel {
         FALLING_PHASE (1),
         LOCK_PHASE (2),
         CLEAR_PHASE (3),
-        UPDATE_PHASE (4);
+        UPDATE_PHASE (4),
+        FINISHED_PHASE (5);
 
         private final int type;
         GameStates(int typeAsInt) {

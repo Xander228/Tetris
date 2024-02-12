@@ -63,4 +63,15 @@ public class Draw
                     1, Constants.PIECE_SIZE - (2 * i));
         }
     }
+
+    public static void gameOver( int score, int lines, int level, Graphics g){
+        int x = (Constants.BOARD_WIDTH / 2) - (Constants.GAMEOVER_WIDTH / 2);
+        int y = (Constants.BOARD_HEIGHT / 2) - (Constants.GAMEOVER_HEIGHT / 2);
+        g.setColor(Constants.ACCENT_COLOR);
+        g.fillRect(x, y, Constants.GAMEOVER_WIDTH, Constants.GAMEOVER_HEIGHT);
+        for(int i = 0; i <= Constants.HEADER_HEIGHT / 2; i++) {
+            g.drawLine(i + x, Constants.HEADER_HEIGHT + y, x, Constants.HEADER_HEIGHT + i + y);
+        }
+
+    }
 }
