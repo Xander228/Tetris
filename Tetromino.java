@@ -273,6 +273,7 @@ public class Tetromino {
     
     public void setBoardRelative(boolean boardRelative) {
         this.boardRelative = boardRelative;
+        pieceRotation = 0;
     }
     
     private boolean isOverlapped(int x, int y, int rotation, int[][] board) {

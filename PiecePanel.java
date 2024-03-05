@@ -9,17 +9,17 @@ public class PiecePanel extends JPanel {
 
     public PiecePanel() {
         // Initialize components, set layout, etc.
-        setPreferredSize( new Dimension(Constants.PIECE_PANEL_WIDTH, 
-                                        Constants.BOARD_HEIGHT));
+        setPreferredSize(new Dimension(Constants.PIECE_PANEL_WIDTH,
+                Constants.BOARD_HEIGHT));
         setLayout(new BorderLayout(0, 0));
-        
+
         scorePanel = new ScorePanel();
         holdPanel = new HoldPanel();
         queuePanel = new QueuePanel();
-        
-        add(scorePanel,BorderLayout.NORTH);
-        add(holdPanel,BorderLayout.CENTER);
-        add(queuePanel,BorderLayout.SOUTH);
+
+        add(scorePanel, BorderLayout.NORTH);
+        add(holdPanel, BorderLayout.CENTER);
+        add(queuePanel, BorderLayout.SOUTH);
     }
 
     public Tetromino switchPiece(Tetromino newPiece) {
@@ -29,9 +29,13 @@ public class PiecePanel extends JPanel {
     public Tetromino getNewPiece() {
         return queuePanel.pullFromQueue();
     }
+
     public void update() {
-        scorePanel.update();
         holdPanel.update();
         queuePanel.update();
+    }
+
+    public void updateScores(int score, int lines, int level) {
+        scorePanel.update(score, lines, level);
     }
 }

@@ -29,6 +29,10 @@ public class GamePanel extends JPanel {
     private PiecePanel piecePanel;
     private boolean hasSwap;
 
+    private int score;
+    private int lines;
+    private int level;
+
     public GamePanel() {
         this.gameState = GameStates.GENERATION_PHASE;
 
@@ -44,6 +48,10 @@ public class GamePanel extends JPanel {
         // Add the matrixPanel and piecePanel to the panel
         add(matrixPanel);
         add(piecePanel, BorderLayout.EAST);
+
+        score = 0;
+        lines = 0;
+        level = 1;
 
         this.hasSwap = false;
     }
@@ -143,15 +151,24 @@ public class GamePanel extends JPanel {
                 break;
 
             case UPDATE_PHASE:
+
                 //checks for lines & clears lines and tallies them
                 //Continues to UPDATE_PHASE
                 if (matrixPanel.identifyRows()) {
                     matrixPanel.repaint();
                     if(matrixPanel.canClear()) {
-                        matrixPanel.clearRows();
+                        lines += matrixPanel.clearRows();
                         this.gameState = GameStates.GENERATION_PHASE;
                     }
                 } else this.gameState = GameStates.GENERATION_PHASE;
+
+                while(true){
+                    int levelGoal = 5 * (level * (level + 1)) / 2;
+                    if (lines >= levelGoal) level++;
+                    else break;
+                }
+
+                piecePanel.updateScores(score,lines,level);
                 break;
         }
     }
