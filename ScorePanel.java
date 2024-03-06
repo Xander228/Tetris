@@ -13,11 +13,12 @@ public class ScorePanel extends JPanel {
         setPreferredSize( new Dimension(Constants.PIECE_PANEL_WIDTH, 
                                         Constants.SCORE_PANEL_HEIGHT));
         setBackground(Constants.BACKGROND_COLOR);
+        setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Constants.BACKGROND_COLOR));
         setLayout(new BorderLayout(0, 0));
 
         scoreLabel = new JLabel("Score: 0", JLabel.CENTER);
         lineLabel = new JLabel("Lines: 0", JLabel.CENTER);
-        levelLabel = new JLabel("Level: 0", JLabel.CENTER);
+        levelLabel = new JLabel("Level: 1", JLabel.CENTER);
 
         scoreLabel.setFont(new Font("Arial", Font.BOLD, 16));
         lineLabel.setFont(new Font("Arial", Font.BOLD, 16));

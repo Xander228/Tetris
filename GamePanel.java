@@ -92,7 +92,7 @@ public class GamePanel extends JPanel {
 
                 matrixPanel.handleKeyPress(keyPressed);
 
-                if(matrixPanel.shouldFall(1)){
+                if(matrixPanel.shouldFall(level)){
                     if(matrixPanel.drop()){
                         //score++
                     } else {

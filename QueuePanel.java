@@ -14,6 +14,7 @@ public class QueuePanel extends JPanel {
         setBackground(Constants.COLORS[0][0]);
         pieceLabel = new JLabel("QUEUE");
         pieceLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        pieceLabel.setForeground(Constants.BACKGROND_COLOR);
         add(pieceLabel);
         
         pieceBag = new PieceBag();

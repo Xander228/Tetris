@@ -10,9 +10,10 @@ public class HoldPanel extends JPanel {
         // Initialize components, set layout, etc.
         setPreferredSize( new Dimension(Constants.PIECE_PANEL_WIDTH, 
                                         Constants.HOLD_PANEL_HEIGHT));
-        setBackground(Constants.COLORS[0][0]);
+        setBackground(Constants.BACKGROND_COLOR);
         pieceLabel = new JLabel("HOLD");
         pieceLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        pieceLabel.setForeground(Constants.BACKGROND_COLOR);
         add(pieceLabel);
     }
 
