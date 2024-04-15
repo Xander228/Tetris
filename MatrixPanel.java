@@ -66,7 +66,12 @@ public class MatrixPanel extends JPanel {
     public void setPiece(Tetromino tetromino) {
         this.tetromino = tetromino;
         this.tetromino.setBoardRelative(true);
-        this.tetromino.setBoardCoords(5, -1);
+        this.tetromino.setBoardCoords(5, -2);
+        int i = -1;
+        while(tetromino.isOverlapped(board)) {
+            tetromino.setBoardCoords(5, -2 + i);
+            i--;
+        }
     }
 
     public boolean shouldFall(int level){
@@ -98,7 +103,6 @@ public class MatrixPanel extends JPanel {
         if (tetromino == null) return;
         tetromino.drawGhost(board, g);
         tetromino.draw(g);
-        //Draw.gameOver(0,0,0,g);
     }
 
     public void lockTetromino() {
@@ -154,6 +158,15 @@ public class MatrixPanel extends JPanel {
     public boolean canClear() {
         loopsSinceIdentified++;
         return loopsSinceIdentified >= Constants.CLEAR_LOOPS;
+    }
+
+    public boolean lockedAboveBoard() {
+        for (int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
+            if (board[indexX][3] != 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void drawBoard(Graphics g) {

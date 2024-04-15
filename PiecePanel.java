@@ -7,6 +7,7 @@ public class PiecePanel extends JPanel {
     private HoldPanel holdPanel;
     private QueuePanel queuePanel;
 
+
     public PiecePanel() {
         // Initialize components, set layout, etc.
         setPreferredSize(new Dimension(Constants.PIECE_PANEL_WIDTH,

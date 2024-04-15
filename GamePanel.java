@@ -154,13 +154,15 @@ public class GamePanel extends JPanel {
 
                 //checks for lines & clears lines and tallies them
                 //Continues to UPDATE_PHASE
+                int clearedLines = 0;
                 if (matrixPanel.identifyRows()) {
                     matrixPanel.repaint();
                     if(matrixPanel.canClear()) {
-                        lines += matrixPanel.clearRows();
+                        clearedLines= matrixPanel.clearRows();
                         this.gameState = GameStates.GENERATION_PHASE;
                     }
                 } else this.gameState = GameStates.GENERATION_PHASE;
+                lines += clearedLines;
 
                 while(true){
                     int levelGoal = 5 * (level * (level + 1)) / 2;
@@ -168,8 +170,28 @@ public class GamePanel extends JPanel {
                     else break;
                 }
 
+                switch(clearedLines) {
+                    case 1:
+                        score += 100 * level;
+                        break;
+                    case 2:
+                        score += 300 * level;
+                        break;
+                    case 3:
+                        score += 500 * level;
+                        break;
+                    case 4:
+                        score += 800 * level;
+                        break;
+                }
+
                 piecePanel.updateScores(score,lines,level);
+                if (matrixPanel.lockedAboveBoard()) this.gameState = GameStates.FINISHED_PHASE;
                 break;
+
+            case FINISHED_PHASE:
+                break;
+
         }
     }
 }

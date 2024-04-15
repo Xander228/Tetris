@@ -293,7 +293,9 @@ public class Tetromino {
     public boolean isOverlapped(int x, int y, int[][] board) {
         return isOverlapped(x, y, this.pieceRotation, board);
     }
-    
+    public boolean isOverlapped(int[][] board) {
+        return isOverlapped(this.boardX, this.boardY, this.pieceRotation, board);
+    }
     public boolean isOutOfBounds(int x, int y, int rotation) {
         for (int indexY = 0; indexY < 4; indexY++) {
             for (int indexX = 0; indexX < 4; indexX++) {
