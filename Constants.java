@@ -59,8 +59,11 @@ public class Constants
     public static final int FRAME_WIDTH = BOARD_WIDTH + PIECE_PANEL_WIDTH;
     public static final int FRAME_HEIGHT = BOARD_HEIGHT;
     
-    public static final  Color BACKGROND_COLOR = new Color((int)0x212121);
-    public static final  Color ACCENT_COLOR = new Color((int)0x555555);
+    public static final  Color BACKGROUND_COLOR = new Color((int)0x212121);
+    public static final  Color ACCENT_COLOR = new Color((int)0x373737);
+
+
+    public static final  Color PRIMARY_COLOR = new Color((int)0x555555);
     
     //Color[0] defines board colors
     //Color[1 - 7] define piece colors

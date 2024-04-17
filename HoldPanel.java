@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class HoldPanel extends JPanel {
     private JLabel pieceLabel;
@@ -10,10 +9,10 @@ public class HoldPanel extends JPanel {
         // Initialize components, set layout, etc.
         setPreferredSize( new Dimension(Constants.PIECE_PANEL_WIDTH, 
                                         Constants.HOLD_PANEL_HEIGHT));
-        setBackground(Constants.BACKGROND_COLOR);
+        setBackground(Constants.BACKGROUND_COLOR);
         pieceLabel = new JLabel("HOLD");
         pieceLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        pieceLabel.setForeground(Constants.BACKGROND_COLOR);
+        pieceLabel.setForeground(Constants.BACKGROUND_COLOR);
         add(pieceLabel);
     }
 

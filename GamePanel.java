@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
 public class GamePanel extends JPanel {
@@ -41,8 +40,8 @@ public class GamePanel extends JPanel {
         // Create an instance of the ScorePanel class
         piecePanel = new PiecePanel();
 
-        setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10, Constants.ACCENT_COLOR));
-        setBackground(Constants.ACCENT_COLOR);
+        setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10, Constants.PRIMARY_COLOR));
+        setBackground(Constants.PRIMARY_COLOR);
         setLayout(new BorderLayout(10, 10));
 
         // Add the matrixPanel and piecePanel to the panel
@@ -56,7 +55,7 @@ public class GamePanel extends JPanel {
         this.hasSwap = false;
     }
 
-    public void run(HashMap<Integer, Integer> keyPressed) {
+    public boolean run(HashMap<Integer, Integer> keyPressed) {
         switch(this.gameState){
             case GENERATION_PHASE:
                 //Set tetromino to the piece passed in, sets start location
@@ -190,8 +189,9 @@ public class GamePanel extends JPanel {
                 break;
 
             case FINISHED_PHASE:
-                break;
+                return false;
 
         }
+        return true;
     }
 }

@@ -1,9 +1,11 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
 
 public class TetrisFrame extends JFrame {
     private GamePanel gamePanel;
+    private Timer timer;
 
     
     public TetrisFrame() {
@@ -14,8 +16,8 @@ public class TetrisFrame extends JFrame {
 
         //menuLoop is a panel within the frame that contains all screenPanels
         //menuLoop switches the current panel based on the screenStates
-        gamePanel = new GamePanel();
-        add(gamePanel);
+        //gamePanel = new GamePanel();
+        //add(gamePanel);
         pack();
         
         //create a hashmap that maps a key to a true false value to represent weather or not its pressed
@@ -44,7 +46,7 @@ public class TetrisFrame extends JFrame {
         });
 
         // Set up a Timer for the game loop
-        Timer timer = new Timer(Constants.LOOP_TIME, new ActionListener() {
+        timer = new Timer(Constants.LOOP_TIME, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for(int key : Constants.KEY_LIST) {
@@ -53,7 +55,7 @@ public class TetrisFrame extends JFrame {
                 }
 
                 //pass in the list of currently pressed keys when running the loop
-                gamePanel.run(keyTimes);
+                /* if(!gamePanel.run(keyTimes)) */ gameOver();
             }
         });
         // Set the frame focusable for KeyListener
@@ -65,7 +67,10 @@ public class TetrisFrame extends JFrame {
         // Set the frame visible
         setVisible(true);
     }
-
+    private void gameOver(){
+        Draw.gameOver(this);
+        timer.stop();
+    }
     public static void main(String[] args) {
         // Run the application on the EDT
         SwingUtilities.invokeLater(new Runnable() {

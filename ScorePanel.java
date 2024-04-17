@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class ScorePanel extends JPanel {
 
@@ -12,8 +11,8 @@ public class ScorePanel extends JPanel {
         // Initialize components, set layout, etc.
         setPreferredSize( new Dimension(Constants.PIECE_PANEL_WIDTH, 
                                         Constants.SCORE_PANEL_HEIGHT));
-        setBackground(Constants.BACKGROND_COLOR);
-        setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Constants.BACKGROND_COLOR));
+        setBackground(Constants.BACKGROUND_COLOR);
+        setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Constants.BACKGROUND_COLOR));
         setLayout(new BorderLayout(0, 0));
 
         scoreLabel = new JLabel("Score: 0", JLabel.CENTER);
@@ -24,9 +23,9 @@ public class ScorePanel extends JPanel {
         lineLabel.setFont(new Font("Arial", Font.BOLD, 16));
         levelLabel.setFont(new Font("Arial", Font.BOLD, 16));
 
-        scoreLabel.setForeground(Constants.ACCENT_COLOR);
-        lineLabel.setForeground(Constants.ACCENT_COLOR);
-        levelLabel.setForeground(Constants.ACCENT_COLOR);
+        scoreLabel.setForeground(Constants.PRIMARY_COLOR);
+        lineLabel.setForeground(Constants.PRIMARY_COLOR);
+        levelLabel.setForeground(Constants.PRIMARY_COLOR);
 
         add(scoreLabel, BorderLayout.NORTH);
         add(lineLabel, BorderLayout.CENTER);
