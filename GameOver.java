@@ -2,12 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameOver {
+public class GameOver extends JDialog{
     GameOver(TetrisFrame frame, int score, int lines, int level){
-        JDialog dialog = new JDialog(frame,"GameOver");
-        dialog.setSize(300, 200);
-        dialog.setLocationRelativeTo(frame);
-        dialog.setUndecorated(true);
+        super(frame,"GameOver");
+        this.setSize(300, 200);
+        this.setLocationRelativeTo(frame);
+        this.setUndecorated(true);
 
         JPanel dialogPanel = new JPanel();
         dialogPanel.setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10, Constants.ACCENT_COLOR));
@@ -58,8 +58,8 @@ public class GameOver {
 
         restart.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
+                GameOver.super.dispose();
                 frame.startNewGame();
-                frame.remove(dialogPanel);
             }
         });
 
@@ -77,8 +77,8 @@ public class GameOver {
         dialogPanel.add(textPanel, BorderLayout.NORTH);
         dialogPanel.add(infoPanel, BorderLayout.CENTER);
         dialogPanel.add(buttonPanel, BorderLayout.SOUTH);
-        dialog.add(dialogPanel);
-        dialog.setVisible(true);
+        this.add(dialogPanel);
+        this.setVisible(true);
     }
 
 }

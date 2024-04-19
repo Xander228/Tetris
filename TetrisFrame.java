@@ -76,6 +76,7 @@ public class TetrisFrame extends JFrame {
         this.remove(gamePanel);
         gamePanel = new GamePanel();
         this.add(gamePanel);
+        pack();
         timer.start();
     }
 
