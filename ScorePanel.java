@@ -15,21 +15,23 @@ public class ScorePanel extends JPanel {
         setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Constants.BACKGROUND_COLOR));
         setLayout(new BorderLayout(0, 0));
 
-        scoreLabel = new JLabel("Score: 0", JLabel.CENTER);
-        lineLabel = new JLabel("Lines: 0", JLabel.CENTER);
-        levelLabel = new JLabel("Level: 1", JLabel.CENTER);
 
-        scoreLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        lineLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        levelLabel.setFont(new Font("Arial", Font.BOLD, 16));
-
-        scoreLabel.setForeground(Constants.PRIMARY_COLOR);
-        lineLabel.setForeground(Constants.PRIMARY_COLOR);
-        levelLabel.setForeground(Constants.PRIMARY_COLOR);
+        class ScoreLabel extends JLabel {
+            ScoreLabel(){
+                super("", JLabel.CENTER);
+                this.setFont(new Font("Arial", Font.BOLD, 16));
+                this.setForeground(Constants.PRIMARY_COLOR);
+            }
+        }
+        scoreLabel = new ScoreLabel();
+        lineLabel = new ScoreLabel();
+        levelLabel = new ScoreLabel();
 
         add(scoreLabel, BorderLayout.NORTH);
         add(lineLabel, BorderLayout.CENTER);
         add(levelLabel, BorderLayout.SOUTH);
+
+        this.update(0,0,1);
     }
     
     public void update(int score, int lines, int level) {

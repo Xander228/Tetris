@@ -16,8 +16,8 @@ public class TetrisFrame extends JFrame {
 
         //menuLoop is a panel within the frame that contains all screenPanels
         //menuLoop switches the current panel based on the screenStates
-        //gamePanel = new GamePanel();
-        //add(gamePanel);
+        gamePanel = new GamePanel();
+        add(gamePanel);
         pack();
         
         //create a hashmap that maps a key to a true false value to represent weather or not its pressed
@@ -55,7 +55,7 @@ public class TetrisFrame extends JFrame {
                 }
 
                 //pass in the list of currently pressed keys when running the loop
-                /* if(!gamePanel.run(keyTimes)) */ gameOver();
+                if(!gamePanel.run(keyTimes)) gameOver();
             }
         });
         // Set the frame focusable for KeyListener
@@ -68,9 +68,17 @@ public class TetrisFrame extends JFrame {
         setVisible(true);
     }
     private void gameOver(){
-        Draw.gameOver(this);
+        int[] scores = gamePanel.getScores();
+        new GameOver(this, scores[0], scores[1], scores[2]);
         timer.stop();
     }
+    public void startNewGame(){
+        this.remove(gamePanel);
+        gamePanel = new GamePanel();
+        this.add(gamePanel);
+        timer.start();
+    }
+
     public static void main(String[] args) {
         // Run the application on the EDT
         SwingUtilities.invokeLater(new Runnable() {

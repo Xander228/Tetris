@@ -55,6 +55,9 @@ public class GamePanel extends JPanel {
         this.hasSwap = false;
     }
 
+    public int[] getScores(){
+        return new int[]{score, lines, level};
+    }
     public boolean run(HashMap<Integer, Integer> keyPressed) {
         switch(this.gameState){
             case GENERATION_PHASE:
