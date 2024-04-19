@@ -125,6 +125,7 @@ public class GamePanel extends JPanel {
                 if(keyPressed.get(Constants.HARD_DROP_KEY) == 1) {
                     matrixPanel.hardDrop();
                     this.gameState = GameStates.CLEAR_PHASE;
+                    break;
                 }
 
                 if(matrixPanel.handleKeyPress(keyPressed)){
