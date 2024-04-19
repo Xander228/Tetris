@@ -267,8 +267,10 @@ public class Tetromino {
         return true;
     }
     
-    public void hardDrop(int[][] board){
-        while (tryDrop(board));
+    public int hardDrop(int[][] board){
+        int lines = 0;
+        while (tryDrop(board)) lines++;
+        return lines;
     }
     
     public void setBoardRelative(boolean boardRelative) {

@@ -91,9 +91,12 @@ public class MatrixPanel extends JPanel {
     public boolean drop(){
         return tetromino.tryDrop(board);
     }
+    public boolean isSoftDropping(){
+        return isSoftDropping;
+    }
 
-    public void hardDrop(){
-        tetromino.hardDrop(board);
+    public int hardDrop(){
+        return tetromino.hardDrop(board);
     }
 
     @Override

@@ -88,7 +88,7 @@ public class GamePanel extends JPanel {
                     break;
                 }
                 if(keyPressed.get(Constants.HARD_DROP_KEY) == 1) {
-                    matrixPanel.hardDrop();
+                    score += 2 * matrixPanel.hardDrop();
                     this.gameState = GameStates.CLEAR_PHASE;
                 }
 
@@ -96,7 +96,7 @@ public class GamePanel extends JPanel {
 
                 if(matrixPanel.shouldFall(level)){
                     if(matrixPanel.drop()){
-                        //score++
+                        if(matrixPanel.isSoftDropping()) score++;
                     } else {
                         if(matrixPanel.canResetCounter()) {
                             matrixPanel.resetTimer();
@@ -123,7 +123,7 @@ public class GamePanel extends JPanel {
                     break;
                 }
                 if(keyPressed.get(Constants.HARD_DROP_KEY) == 1) {
-                    matrixPanel.hardDrop();
+                    score += 2 * matrixPanel.hardDrop();
                     this.gameState = GameStates.CLEAR_PHASE;
                     break;
                 }
