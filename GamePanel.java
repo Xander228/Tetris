@@ -6,21 +6,20 @@ public class GamePanel extends JPanel {
 
     //Creates an enum with a list of all game states
     private enum GameStates {
-        GENERATION_PHASE (0), //Initialize the tetromino object for play
-        FALLING_PHASE (1), //Drop the teromino and allow user input
-        LOCK_PHASE (2), //Decides whether the tetromino should lock 
-        UPDATE_PHASE(3), //Writes tetromino to board
-        CLEAR_PHASE(4), //Clears lines & tallies points, lines, and levels
-        FINISHED_PHASE (5); //Ends the game
+        GENERATION_PHASE (), //Initialize the tetromino object for play
+        FALLING_PHASE (), //Drop the teromino and allow user input
+        LOCK_PHASE (), //Decides whether the tetromino should lock
+        UPDATE_PHASE(), //Writes tetromino to board
+        CLEAR_PHASE(), //Clears lines & tallies points, lines, and levels
+        FINISHED_PHASE (); //Ends the game
 
         //GameStates constructor
-        GameStates(int typeAsInt){
-        }
+        GameStates(){}
     }
 
     private GameStates gameState; //Declare the gameStates
-    private MatrixPanel matrixPanel; //Declare the matrixPanel
-    private PiecePanel piecePanel; //Declare the piecePanel
+    final private MatrixPanel matrixPanel; //Declare the matrixPanel
+    final private PiecePanel piecePanel; //Declare the piecePanel
     private boolean hasSwap; //Declare the hasSwap variable
 
     private int score; //Declare the score variable
@@ -131,26 +130,33 @@ public class GamePanel extends JPanel {
                 //If piece is now able to drop revert to FALLING_PHASE
                 //If locked continue to UPDATE_PHASE
 
+                matrixPanel.setLowestLock(); //Records the height of the lock attempt to determine if the lock counter can reset
 
-                matrixPanel.setLowestLock();
-
+                //If the hold key is pressed and a swap has not been requested already then swap pieces
+                //If hasSwap is true, that means a piece has been held since the last lock, and it can't switch again
+                //Checks if the key time equals 1 because this should only be triggered once per keypress
                 if (keyPressed.get(Constants.HOLD_KEY) == 1 && !hasSwap) {
-                    this.hasSwap = true;
-                    this.gameState = GameStates.GENERATION_PHASE;
-                    break;
-                }
-                if(keyPressed.get(Constants.HARD_DROP_KEY) == 1) {
-                    score += 2 * matrixPanel.hardDrop();
-                    this.gameState = GameStates.UPDATE_PHASE;
-                    break;
+                    this.hasSwap = true; //Preps the GENERATION_PHASE for a swap and prevents additional holds before a lock
+                    this.gameState = GameStates.GENERATION_PHASE; //Sets the next game phase to GENERATION_PHASE
+                    break; //Breaks out of the current game phase
                 }
 
+                //If the hard drop key is pressed the hard drop the piece
+                //Checks if the key time equals 1 because this should only be triggered once per keypress
+                if(keyPressed.get(Constants.HARD_DROP_KEY) == 1) {
+                    score += 2 * matrixPanel.hardDrop(); //Runs hardDrop which drops the piece and returns the number of lines dropped to award points
+                    this.gameState = GameStates.UPDATE_PHASE; //Sets the next game phase to UPDATE_PHASE
+                    break; //Breaks out of the current game phase
+                }
+
+                //If the user's key presses resulted in a successful left, right, or rotation move, try dropping and resetting the timer
                 if(matrixPanel.handleKeyPress(keyPressed)){
+
+                    //Try dropping the piece, if successful then return to FALLING_PHASE, otherwise try to rest the timer
                     if(matrixPanel.drop()){
-                        score++;
-                        this.gameState = GameStates.FALLING_PHASE;
-                    } else if(matrixPanel.canResetTimer())
-                        matrixPanel.resetTimer();
+                        if(matrixPanel.isSoftDropping()) score++; //Adds a bonus point if soft dropping
+                        this.gameState = GameStates.FALLING_PHASE; //Sets the next game phase back to FALLING_PHASE
+                    } else matrixPanel.tryResettingTimer();
                 }
 
                 if(matrixPanel.isTimerElapsed()){

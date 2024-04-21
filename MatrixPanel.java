@@ -37,8 +37,8 @@ public class MatrixPanel extends JPanel {
     public void resetCounter(){
         numberOfResets = 0;
     }
-    public boolean canResetTimer(){
-        return numberOfResets <= Constants.MOVES_BEFORE_LOCK;
+    public void tryResettingTimer(){
+        if (numberOfResets <= Constants.MOVES_BEFORE_LOCK) resetTimer();
     }
 
     public void setLowestLock () {
