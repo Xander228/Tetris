@@ -182,6 +182,21 @@ public class MatrixPanel extends JPanel {
             }   
         }
     }
+
+    public void destroyBoard(){
+        identifyBoard();
+    }
+
+    public void identifyBoard(){
+        for(int indexY = 0; indexY < Constants.BOARD_ROWS; indexY++) {
+            for(int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
+                if (board[indexX][indexY] != 0) {
+                    board[indexX][indexY] = 8;
+                }
+            }
+        }
+
+    }
     
     public boolean handleKeyPress(HashMap<Integer, Integer> keyTimes){
 

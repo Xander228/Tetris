@@ -55,9 +55,7 @@ public class TetrisFrame extends JFrame {
 
         //Set up a Timer to run the game loop
         //Creates a new timer object with a delay equal to LOOP_TIME which is the time it takes for one loop
-        timer = new Timer(Constants.LOOP_TIME,
-            //Creates a new ActionListener object with the following methods overriden
-            new ActionListener() {
+        timer = new Timer(Constants.LOOP_TIME, new ActionListener() {
                 //Overrides the actionPerformed method which is called every time the LOOP_TIME elapses
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -92,6 +90,7 @@ public class TetrisFrame extends JFrame {
 
     //Replaces old gamePanel with a new instance, then restarts the timer
     public void startNewGame(){
+        gamePanel.destroyBoard();
         gamePanel = new GamePanel(); //Replaces the existing gamePanel object with the new one
         this.add(gamePanel); //Re-adds the new gamePanel object to the frame
         pack(); //Ensures that the new gamePanel is at its desired size and removes old panel

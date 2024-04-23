@@ -11,7 +11,8 @@ public class GamePanel extends JPanel {
         LOCK_PHASE (), //Decides whether the tetromino should lock
         UPDATE_PHASE(), //Writes tetromino to board
         CLEAR_PHASE(), //Clears lines & tallies points, lines, and levels
-        FINISHED_PHASE (); //Ends the game
+        FINISHED_PHASE (), //Ends the game
+        DESTRUCTION_PHASE (); // Destroys the game pieces upon a new game
 
         //GameStates constructor
         GameStates(){}
@@ -223,11 +224,20 @@ public class GamePanel extends JPanel {
             case FINISHED_PHASE:
                 return false;
 
+            case DESTRUCTION_PHASE:
+                matrixPanel.destroyBoard();
+                this.gameState = GameStates.GENERATION_PHASE;
+                break;
+
         }
         return true;
     }
 
     public int[] getScores(){
         return new int[]{score, lines, level};
+    }
+
+    public void destroyBoard(){
+        this.gameState = GameStates.DESTRUCTION_PHASE;
     }
 }
