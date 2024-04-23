@@ -119,7 +119,7 @@ public class GamePanel extends JPanel {
                     }
                 }
 
-                piecePanel.updateScores(score,lines,level); //Updates the score panel with new scores
+                piecePanel.updateScores(score,lines,level); //Updates the score panel with new soft or hard drop related scores
                 repaint(); //Redraw everything because things have moved
                 break; //Breaks out of the current game phase
 
@@ -156,39 +156,43 @@ public class GamePanel extends JPanel {
                     if(matrixPanel.drop()){
                         if(matrixPanel.isSoftDropping()) score++; //Adds a bonus point if soft dropping
                         this.gameState = GameStates.FALLING_PHASE; //Sets the next game phase back to FALLING_PHASE
-                    } else matrixPanel.tryResettingTimer();
+                    } else matrixPanel.tryResettingTimer(); //Check if the timer has been reset too many times and only resets if it's below the threshold
                 }
 
+                //If the timer has run out, lock the piece
                 if(matrixPanel.isTimerElapsed()){
-                    this.gameState = GameStates.UPDATE_PHASE;
-                    break;
+                    this.gameState = GameStates.UPDATE_PHASE; //Sets the next game phase to UPDATE_PHASE
+                    break; //Breaks out of the current game phase
                 }
 
-                matrixPanel.incrementTimer();
-                piecePanel.updateScores(score,lines,level);
-                repaint();
-                break;
+                matrixPanel.incrementTimer(); //Increment the timer by one loop time
+                piecePanel.updateScores(score,lines,level); //Updates the score panel with new soft or hard drop related scores
+                repaint(); //Redraw everything because things have moved
+                break; //Breaks out of the current game phase
 
             case UPDATE_PHASE:
-                //Writes current tetromino to its location on the board
-                //Continues to CLEAR_PHASE
-                matrixPanel.lockTetromino();
-                this.hasSwap = false;
-                this.gameState = GameStates.CLEAR_PHASE;
-                break;
+                //Writes current tetromino to its current location on the board
+                //Continues to CLEAR_PHASE at the end
+
+                matrixPanel.lockTetromino(); //Tells the matrixPanel to write the tetromino to the board
+                this.hasSwap = false; //Tells the GENERATION_PHASE that it should not swap pieces and allows pieces to be swapped after this lock
+                this.gameState = GameStates.CLEAR_PHASE; //Sets the next game phase to UPDATE_PHASE
+                break; //Breaks out of the current game phase
 
             case CLEAR_PHASE:
+                //Indexes through the board to look for lines, tallies them, and then clears them
+                //Returns back to GENERATION_PHASE at the end
 
-                //checks for lines & clears lines and tallies them
-                //Continues to GENERATION_PHASE
-                int clearedLines = 0;
+                int clearedLines = 0; //Declares and initializes a variable to store the number of cleared line
+
+                //Identifies full rows of pieces and colors them white,
                 if (matrixPanel.identifyRows()) {
                     matrixPanel.repaint();
                     if(matrixPanel.canClear()) {
-                        clearedLines= matrixPanel.clearRows();
+                        clearedLines = matrixPanel.clearRows();
                         this.gameState = GameStates.GENERATION_PHASE;
                     }
-                } else this.gameState = GameStates.GENERATION_PHASE;
+                } else break;
                 lines += clearedLines;
 
                 while(true){
@@ -214,6 +218,7 @@ public class GamePanel extends JPanel {
 
                 piecePanel.updateScores(score,lines,level);
                 if (matrixPanel.lockedAboveBoard()) this.gameState = GameStates.FINISHED_PHASE;
+                this.gameState = GameStates.GENERATION_PHASE;
                 break;
 
             case FINISHED_PHASE:
