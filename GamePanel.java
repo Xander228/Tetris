@@ -190,9 +190,8 @@ public class GamePanel extends JPanel {
                     matrixPanel.repaint();
                     if(matrixPanel.canClear()) {
                         clearedLines = matrixPanel.clearRows();
-                        this.gameState = GameStates.GENERATION_PHASE;
-                    }
-                } else break;
+                    } else break;
+                }
                 lines += clearedLines;
 
                 while(true){
@@ -217,8 +216,8 @@ public class GamePanel extends JPanel {
                 }
 
                 piecePanel.updateScores(score,lines,level);
-                if (matrixPanel.lockedAboveBoard()) this.gameState = GameStates.FINISHED_PHASE;
                 this.gameState = GameStates.GENERATION_PHASE;
+                if (matrixPanel.lockedAboveBoard()) this.gameState = GameStates.FINISHED_PHASE;
                 break;
 
             case FINISHED_PHASE:
