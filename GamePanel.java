@@ -185,49 +185,55 @@ public class GamePanel extends JPanel {
 
                 int clearedLines = 0; //Declares and initializes a variable to store the number of cleared line
 
-                //Identifies full rows of pieces and colors them white,
+                //Identifies full rows of pieces and colors them white, then breaks until it is allowed to clear them
                 if (matrixPanel.identifyRows()) {
-                    matrixPanel.repaint();
+
+                    //If the right number of loops have passed it allows the lines to be cleared, otherwise it keeps breaking
                     if(matrixPanel.canClear()) {
-                        clearedLines = matrixPanel.clearRows();
-                    } else break;
+                        clearedLines = matrixPanel.clearRows(); //Actually clear the lines and tallies the total for scoring
+                    } else break; //If the game can't clear the lines, break and restart the CLEAR_PHASE
                 }
-                lines += clearedLines;
 
+                lines += clearedLines; //Adds the number of lines just cleared to the total tally
+
+                //Increments the level based on whether the current number of lines have met the goal for that level
                 while(true){
-                    int levelGoal = 5 * (level * (level + 1)) / 2;
-                    if (lines >= levelGoal) level++;
-                    else break;
+                    int levelGoal = 5 * (level * (level + 1)) / 2; //Sets the new goal needed for the next level based on the current level
+                    if (lines >= levelGoal) level++; //If the number of lines cleared has exceeded that goal, the level is increased
+                    else break; //Otherwise continue the rest of the phase by breaking out of the while loop
                 }
 
+                //Decides how many points to award based on the number of lines that were cleared
                 switch(clearedLines) {
                     case 1:
-                        score += 100 * level;
+                        score += 100 * level; //1 cleared line gives 100 points times the current level
                         break;
                     case 2:
-                        score += 300 * level;
+                        score += 300 * level; //2 cleared lines gives 300 points times the current level
                         break;
                     case 3:
-                        score += 500 * level;
+                        score += 500 * level; //3 cleared lines gives 500 points times the current level
                         break;
                     case 4:
-                        score += 800 * level;
+                        score += 800 * level; //4 cleared lines gives 800 points times the current level
                         break;
                 }
 
-                piecePanel.updateScores(score,lines,level);
-                this.gameState = GameStates.GENERATION_PHASE;
-                if (matrixPanel.lockedAboveBoard()) this.gameState = GameStates.FINISHED_PHASE;
-                break;
+                piecePanel.updateScores(score,lines,level); //Updates the score panel with new line and level based scores
+                this.gameState = GameStates.GENERATION_PHASE; //Sets the next game phase to GENERATION_PHASE
+                if (matrixPanel.lockedAboveBoard()) this.gameState = GameStates.FINISHED_PHASE; //If a piece locks above the board, sets the next game phase to FINISHED_PHASE
+                break; //Breaks out of the current game phase
 
             case FINISHED_PHASE:
-                return false;
+                //Purpose of this phase is to ensure that whenever this method is called after the game has ended, it will always return false
+                return false; //Returns false to indicate the game is over
 
         }
-        return true;
+        return true; //Returns true to indicate the game is still running
     }
 
+    //Getter method to retrieve scores from the gamePanel
     public int[] getScores(){
-        return new int[]{score, lines, level};
+        return new int[]{score, lines, level}; //Returns an int array of the scores
     }
 }

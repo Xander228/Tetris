@@ -47,11 +47,11 @@ public class QueuePanel extends JPanel {
         //creates a temporary reference variable for the current tetromino being drawn
         Tetromino tetromino;
         //indexes through the currentQueue array and draws each piece
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < Constants.QUEUE_SIZE; i++) {
             //get the tetromino as a given position in the queue
             tetromino = currentQueue[i];
             //set the coordinates of that piece based on its place in queue
-            tetromino.setPixelCoords(Constants.PIECE_PANEL_WIDTH / 2, (int)(Constants.HOLD_PANEL_HEIGHT * 0.55) + i * 4 * Constants.PIECE_SIZE);
+            tetromino.setPixelCoords(Constants.PIECE_PANEL_WIDTH / 2, (int)(Constants.HOLD_PANEL_HEIGHT * 0.55) + i * 4 * Constants.CELL_SIZE);
             //draw the tetromino
             tetromino.draw(g);
         }

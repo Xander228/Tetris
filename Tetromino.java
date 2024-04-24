@@ -69,9 +69,9 @@ public class Tetromino {
     };
     
     //Tetromino center offsets formatted in cols x rows (x,y)
-    public static final  int[] DEFAULT_PIECE_OFFSET = {(int)(1.5 * Constants.PIECE_SIZE), 2 * Constants.PIECE_SIZE};
-    public static final  int[] SQUARE_PIECE_OFFSET = {2 * Constants.PIECE_SIZE, 2 * Constants.PIECE_SIZE};
-    public static final  int[] LINE_PIECE_OFFSET = {2 * Constants.PIECE_SIZE, (int)(1.5 * Constants.PIECE_SIZE)};
+    public static final  int[] DEFAULT_PIECE_OFFSET = {(int)(1.5 * Constants.CELL_SIZE), 2 * Constants.CELL_SIZE};
+    public static final  int[] SQUARE_PIECE_OFFSET = {2 * Constants.CELL_SIZE, 2 * Constants.CELL_SIZE};
+    public static final  int[] LINE_PIECE_OFFSET = {2 * Constants.CELL_SIZE, (int)(1.5 * Constants.CELL_SIZE)};
     
     //Kick test offsets formatted as kickTests[rotation type][test num][xy]
     //The rotation type is an integer from 0 to 3 that refers to the set of tests used on a group rotations
@@ -159,13 +159,13 @@ public class Tetromino {
         this.boardX = x;
         this.boardY = y;
         
-        this.pixelX = Constants.PIECE_SIZE * x;
-        this.pixelY = Constants.PIECE_SIZE * y;
+        this.pixelX = Constants.CELL_SIZE * x;
+        this.pixelY = Constants.CELL_SIZE * y;
     }
     
     public void updatePixelCoords() {
-        this.pixelX = Constants.PIECE_SIZE * this.boardX;
-        this.pixelY = Constants.PIECE_SIZE * this.boardY;
+        this.pixelX = Constants.CELL_SIZE * this.boardX;
+        this.pixelY = Constants.CELL_SIZE * this.boardY;
     }
 
     public void setLowestLock(){
@@ -328,8 +328,8 @@ public class Tetromino {
         for (int indexY = 0; indexY < 4; indexY++) {
             for (int indexX = 0; indexX < 4; indexX++) {
                 if (tetrominos[this.type.toInt()][indexY][pieceRotation][indexX] == 0) continue;
-                Draw.square(indexX * Constants.PIECE_SIZE + pixelX - xOffset, 
-                            indexY * Constants.PIECE_SIZE + pixelY - yOffset, 
+                Draw.square(indexX * Constants.CELL_SIZE + pixelX - xOffset,
+                            indexY * Constants.CELL_SIZE + pixelY - yOffset,
                             tetrominos[this.type.toInt()][indexY][this.pieceRotation][indexX], 
                             g);
             }
@@ -354,8 +354,8 @@ public class Tetromino {
         for (int indexY = 0; indexY < 4; indexY++) {
             for (int indexX = 0; indexX < 4; indexX++) {
                 if (tetrominos[this.type.toInt()][indexY][pieceRotation][indexX] == 0) continue;
-                Draw.ghostSquare(indexX * Constants.PIECE_SIZE + pixelX, 
-                            (indexY + lowestY) * Constants.PIECE_SIZE, 
+                Draw.ghostSquare(indexX * Constants.CELL_SIZE + pixelX,
+                            (indexY + lowestY) * Constants.CELL_SIZE,
                             tetrominos[this.type.toInt()][indexY][this.pieceRotation][indexX], 
                             g);
             }

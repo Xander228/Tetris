@@ -5,7 +5,7 @@ import java.awt.event.*;
 public class GameOver extends JDialog{
     GameOver(TetrisFrame frame, int score, int lines, int level){
         super(frame,"GameOver");
-        this.setSize(300, 200);
+        this.setSize(Constants.GAMEOVER_WIDTH, Constants.GAMEOVER_HEIGHT);
         this.setLocationRelativeTo(frame);
         this.setUndecorated(true);
 
