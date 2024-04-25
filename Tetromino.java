@@ -184,6 +184,7 @@ public class Tetromino {
                 board[boardX + indexX][boardY + indexY + Constants.BUFFER_ZONE] = cell;
             }
         }
+        visible = false;
     }
     //returns true if move is successful
     public boolean tryLeft(int[][] board){
@@ -318,9 +319,6 @@ public class Tetromino {
         return isOutOfBounds(x, y, this.pieceRotation);
     }
 
-    public void hide() {
-        visible = false;
-    }
     public void draw(Graphics g) {
         if (!visible) return;
         int xOffset = boardRelative ? 0 : centerOffsets[0];

@@ -116,64 +116,81 @@ public class MatrixPanel extends JPanel {
         return tetromino.hardDrop(board);
     }
 
+    //Override the paint component method inherited from JPanel in order to draw board and tetrominos
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g); 
-        this.drawBoard(g);
-        if (tetromino == null) return;
-        tetromino.drawGhost(board, g);
-        tetromino.draw(g);
+        super.paintComponent(g); //Run the inherited paintComponent code
+        this.drawBoard(g); //Draw the current board state
+        if (tetromino == null) return; //If the tetromino does not exist yet, stop drawing
+        tetromino.drawGhost(board, g); //Draw the ghost piece
+        tetromino.draw(g); //Draw the current piece
     }
 
+    //Writes the current tetromino to the board and hide the current tetromino object
     public void lockTetromino() {
         tetromino.lock(board);
-        tetromino.hide();
     }
 
-
+    //Highlight full rows with white and return whether there are rows to clear
     public boolean identifyRows(){
-        boolean rowsToClear = false;
+        boolean rowsToClear = false; //Initializes rows to clear to false
+
+        //Index through the y-axis of the board to check up by row
         for (int indexY = Constants.TOTAL_BOARD_ROWS - 1; indexY >= Constants.BUFFER_ZONE; indexY--) {
-            boolean rowFull = true;
-            boolean rowEmpty = true;
+            boolean rowFull = true; //Initializes rows full to true
+            boolean rowEmpty = true; //Initializes rows empty to true
+
+            //Index through the x-axis of the board to check through the row
             for (int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
-                if (board[indexX][indexY] == 0) rowFull = false;
-                if (board[indexX][indexY] != 0) rowEmpty = false;
+                if (board[indexX][indexY] == 0) rowFull = false; //If any cell in the row has an empty cell, rowFull becomes false
+                if (board[indexX][indexY] != 0) rowEmpty = false; //If any cell int the row has a full cell, rowEmpty becomes false
             }
-            if (rowEmpty) break;
+            if (rowEmpty) break; //Breaks out of the y-axis for loop early if the row is completely clear because by extent, all rows above are clear as well
+
+            //If a row is full it should be highlighted with white and rowsToClear should be true
             if (rowFull) {
-                for (int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) board[indexX][indexY] = 8;
-                rowsToClear = true;
+                for (int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) board[indexX][indexY] = 8; //For every cell in the row, set it's color to white
+                rowsToClear = true; //Sets rowsToClear true because there are rows that need to be cleared
             }
         }
-        repaint();
-        return rowsToClear;
+        repaint(); //Redraw everything because the board has changed
+        return rowsToClear; //Return whether there are rows that need to be cleared
     }
 
+    //Actually clears the rows and returns the number of rows that were cleared
     public int clearRows() {
-        int lines = 0;
+
+        int lines = 0; //Initializes the number of cleared lines to  0
+
+        //Index through the y-axis of the board to check up by row
         for (int indexY = Constants.BUFFER_ZONE; indexY < Constants.TOTAL_BOARD_ROWS; indexY++) {
-            boolean rowFull = true;
+            boolean rowFull = true; //Initializes rowsFull to true
+            //Index through the x-axis of the board to check through the row
             for (int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
+                //If any cell in the row has an empty cell, rowFull becomes false
                 if (board[indexX][indexY] == 0) {
-                    rowFull = false;
-                    break;
+                    rowFull = false; //Set rowFull false
+                    break; //Break out of this for loop and skip the next one because rowFull is false, continues onto next row
                 }
             }
+
+            //If there is a full row, clear it and move the rest of the board above down by one cell
             if (rowFull) {
+                //Index through the y-axis, starting at the current index that the row was last identified
                 for (int writeY = indexY; writeY >= 0; writeY--) {
-                    boolean rowFinish = true;
+                    boolean rowFinish = true; //Initializes rowFinish to true
+                    //Index through the x-axis of the board and moves each cell down by one
                     for (int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
-                        board[indexX][writeY] = board[indexX][writeY - 1];
-                        if (board[indexX][writeY] != 0) rowFinish = false;
+                        board[indexX][writeY] = board[indexX][writeY - 1]; //Set the current cell to the one above
+                        if (board[indexX][writeY] != 0) rowFinish = false; //If the cell that was copied isn't empty, then set rowFinish false to keep running it
                     }
-                    if (rowFinish) break;
+                    if (rowFinish) break; //Once rowFinish remains true, the for loop can break back into the main loop and find the next full row
                 }
-                lines++;
+                lines++; //Add one to lines to tally that another line has been cleared
             }
         }
-        loopsSinceIdentified = 0;
-        return lines;
+        loopsSinceIdentified = 0; //Reset loops since identified to zero to reset for the next time that lines are cleared
+        return lines; //Return the number of lines that were cleared
     }
 
     public boolean canClear() {
