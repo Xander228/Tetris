@@ -1,7 +1,8 @@
 import java.awt.*;
 
 public class Tetromino {
-    
+
+    //Creates an enum with a list of all piece types
     private enum TetrominoType {
         Z (0),
         L (1),
@@ -11,17 +12,21 @@ public class Tetromino {
         J (5),
         T (6);
         
-        private final int type; 
+        private final int type; //Int to store the piece type as an integer
+
+        //TetrominoType constructor that accepts an int type as an input
         TetrominoType(int typeAsInt) {
             this.type = typeAsInt;
         }
-        
+
+        //Returns the type of current piece as an int
         public int toInt() {
             return this.type;
         }
     }
     
     //Tetromino bitmaps are formatted as tetrominos[piece number][y index][piece rotation][x index]
+    //Piece design and color is inspired by the official Tetris game
     private static final int[][][][] tetrominos = {
         {        
             { {0,0,0,0}, {0,0,0,0}, {0,0,0,0}, {0,0,0,0} },
@@ -72,10 +77,14 @@ public class Tetromino {
     public static final  int[] DEFAULT_PIECE_OFFSET = {(int)(1.5 * Constants.CELL_SIZE), 2 * Constants.CELL_SIZE};
     public static final  int[] SQUARE_PIECE_OFFSET = {2 * Constants.CELL_SIZE, 2 * Constants.CELL_SIZE};
     public static final  int[] LINE_PIECE_OFFSET = {2 * Constants.CELL_SIZE, (int)(1.5 * Constants.CELL_SIZE)};
-    
+
+
     //Kick test offsets formatted as kickTests[rotation type][test num][xy]
+    //Kicked tests are the same for all pieces except the I and O
     //The rotation type is an integer from 0 to 3 that refers to the set of tests used on a group rotations
     //A rotation can be written as a>>b where a and b are integers from 0 to 3 and are associated with a given pieceRotation
+    //There are a series of tests to try if a rotation fails, tests consist of an x and y offset that is applied to the piece
+    //The offsets are based off the official Tetris game
     
     //Rotations: 0>>1 RotationType: 0
     //Rotations: 1>>0 RotationType: 1
@@ -106,33 +115,33 @@ public class Tetromino {
         {{0, 0}, { 1, 0}, {-2, 0}, { 1,-2}, {-2, 1}},
         {{0, 0}, {-1, 0}, { 2, 0}, {-1, 2}, { 2,-1}}
     };
-    
-    private TetrominoType type;
-    private int pieceRotation;
-    
-    private boolean boardRelative;
-    private int boardX, boardY;
-    private int pixelX, pixelY;
 
-    private int lowestLock;
+
+    private TetrominoType type; //Declare type variable to hold the current piece type
+    private int pieceRotation; //Declare an int to store the current piece rotation
+
+    private boolean boardRelative; //Declare a boolean to store whether the current piece's coordinates should be relative to the board or to pixels
+    private int boardX, boardY; //Declare two ints to store the current piece location relative to the board
+    private int pixelX, pixelY; //Declare two ints to store the current piece location relative to its pixel location
+
+    private int lowestLock; //Declare an int to store a pieces lowest attempted lock
     
-    private int[] centerOffsets;
-    private int[][][] kickTests;
-    private boolean visible;
+    private int[] centerOffsets; //Declare an int array to store the current piece's x y center offsets
+    private int[][][] kickTests; //Declare an int array to store the current piece's kick tests
+    private boolean visible; //Declare a boolean to store whether the current piece should be drawn
     
-    //type is a number 0 - 6 that refers to the type of tetromino
+
     public Tetromino(int type, int x, int y, boolean boardRelative) {
-        //sets this.type to the value at index type in the array of TetrominoType values
-        this.type = TetrominoType.values()[type];
-        this.pieceRotation = 0;
-        this.boardRelative = boardRelative;
+        this.type = TetrominoType.values()[type]; //Sets the type variable the TetrominoType that corresponds with the int passed into the constructor
+        this.pieceRotation = 0; //Initializes the current piece's rotation to 0
+        this.boardRelative = boardRelative; //Sets the current piece's coordinate mode to the one passed into the constructor
+        //Sets the current location using the appropriate method based on weather the piece is in board relative mode
         if (boardRelative)  setBoardCoords(x, y);
         else                setPixelCoords(x, y);
+        lowestLock = Constants.BOARD_ROWS; //Initializes the current piece's lowest lock height to the top of the board
+        visible = true; //Initializes the current piece's visibility to true
 
-        lowestLock = 0;
-        visible = true;
-
-        //set the center offset used in pixel relative mode aka boardRelative == false
+        //Set the center offset and kick tests used in pixel relative mode when boardRelative is false
         switch(this.type){
             default:
                 this.centerOffsets = DEFAULT_PIECE_OFFSET;
@@ -149,29 +158,35 @@ public class Tetromino {
                 break;
         }
     }
-     
+
+    //Sets the current location of the piece in pixels
     public void setPixelCoords(int x, int y) {
         this.pixelX = x;
         this.pixelY = y;
     }
-    
+
+    //Sets the current location of the piece in cells
     public void setBoardCoords(int x, int y) {
+        //Sets board relative location
         this.boardX = x;
         this.boardY = y;
-        
-        this.pixelX = Constants.CELL_SIZE * x;
-        this.pixelY = Constants.CELL_SIZE * y;
+
+        //Sets pixel relative location based on its board relative location
+        updatePixelCoords();
     }
-    
+
+    //Sets pixel relative location based on its board relative location
     public void updatePixelCoords() {
         this.pixelX = Constants.CELL_SIZE * this.boardX;
         this.pixelY = Constants.CELL_SIZE * this.boardY;
     }
 
+    //Sets a piece's lowest lock to the least of either it's current height or it's previous height
     public void setLowestLock(){
         lowestLock = Math.min(boardY, lowestLock);
     }
 
+    //Checks whether the lock timer can be reset
     public boolean canResetCounter() {
         return lowestLock > boardY;
     }

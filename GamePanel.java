@@ -156,6 +156,7 @@ public class GamePanel extends JPanel {
                     if(matrixPanel.drop()){
                         if(matrixPanel.isSoftDropping()) score++; //Adds a bonus point if soft dropping
                         this.gameState = GameStates.FALLING_PHASE; //Sets the next game phase back to FALLING_PHASE
+                        break; //Breaks out of the current game phase
                     } else matrixPanel.tryResettingTimer(); //Check if the timer has been reset too many times and only resets if it's below the threshold
                 }
 

@@ -193,23 +193,28 @@ public class MatrixPanel extends JPanel {
         return lines; //Return the number of lines that were cleared
     }
 
+    //Checks whether the game is allowed to clear full lines after they're identified
     public boolean canClear() {
-        loopsSinceIdentified++;
-        return loopsSinceIdentified >= Constants.CLEAR_LOOPS;
+        loopsSinceIdentified++; //Increment the counter by one, to count the next loop
+        return loopsSinceIdentified >= Constants.CLEAR_LOOPS; //If enough loops have passed, return that the rows are allowed to be cleared
     }
 
+    //Checks whether any cells above the playable area are occupied to trigger the game end
     public boolean lockedAboveBoard() {
+        //Index through the row above the top visible row of the board
         for (int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
-            if (board[indexX][Constants.BUFFER_ZONE - 1] != 0) {
-                return true;
-            }
+            if (board[indexX][Constants.BUFFER_ZONE - 1] != 0) return true; //Return true if any of the cells are occupied
         }
-        return false;
+        return false; //Return false as long as there are no cells occupied
     }
 
+    //Indexes through and draw the current board state
     private void drawBoard(Graphics g) {
+        //Index through the x-axis of the board
         for(int indexX = 0; indexX < Constants.BOARD_COLS; indexX++) {
+            //Index through the y-axis of the board
             for(int indexY = 0; indexY < Constants.BOARD_ROWS; indexY++) {
+                //Draw the cell at the current location
                 Draw.square(indexX * Constants.CELL_SIZE,
                             indexY * Constants.CELL_SIZE,
                             board[indexX][indexY + Constants.BUFFER_ZONE],
@@ -217,31 +222,31 @@ public class MatrixPanel extends JPanel {
             }   
         }
     }
-    
+
+    //Handle the action associated with certain key presses
     public boolean handleKeyPress(HashMap<Integer, Integer> keyTimes){
 
+        boolean successfulMove = false; //Initialize the successfulMove variable to false
 
-
-        boolean successfulMove = false;
-        //if left arrow pressed tryLeft and if successful set successfulMove true if it's not already
+        //If left arrow pressed tryLeft and if successful set successfulMove true if it's not already
         if (keyTimes.get(KeyEvent.VK_LEFT) == 1 || keyTimes.get(KeyEvent.VK_LEFT) >= Constants.AUTO_MOVE_LOOPS)
             successfulMove |= tetromino.tryLeft(board);
         
-        //if right arrow pressed tryRight and if successful set successfulMove true if it's not already
+        //If right arrow pressed tryRight and if successful set successfulMove true if it's not already
         if (keyTimes.get(KeyEvent.VK_RIGHT) == 1 || keyTimes.get(KeyEvent.VK_RIGHT) >= Constants.AUTO_MOVE_LOOPS)
             successfulMove |= tetromino.tryRight(board);
 
-        //if up arrow pressed tryRotatingCW and if successful set successfulMove true if it's not already
+        //If up arrow pressed tryRotatingCW and if successful set successfulMove true if it's not already
         if (keyTimes.get(KeyEvent.VK_UP) == 1 )
             successfulMove |= tetromino.tryRotatingCW(board);
 
-        //if up arrow pressed tryRotatingCW and if successful set successfulMove true if it's not already
+        //If up arrow pressed tryRotatingCW and if successful set successfulMove true if it's not already
         if (keyTimes.get(KeyEvent.VK_CONTROL) == 1 )
             successfulMove |= tetromino.tryRotatingCCW(board);
 
-        //if down arrow pressed or released set isSoftDropping to the down arrow's current state
+        //If down arrow pressed or released set isSoftDropping to the down arrow's current state
         isSoftDropping = keyTimes.get(KeyEvent.VK_DOWN) >= 1;
 
-        return successfulMove;
+        return successfulMove; //Return whether a successful move has been performed
     }
 }
