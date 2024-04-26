@@ -186,22 +186,26 @@ public class Tetromino {
         lowestLock = Math.min(boardY, lowestLock);
     }
 
-    //Checks whether the lock timer can be reset
+    //Checks whether the lock counter can be reset based on whether the piece has fallen below its previous lock
     public boolean canResetCounter() {
         return lowestLock > boardY;
     }
 
+    //Writes the tetromino to the board
     public void lock(int[][] board) {
+        //Index through the y-axis of the tetromino
         for (int indexY = 0; indexY < 4; indexY++) {
+            //Index through the x-axis of the tetromino
             for (int indexX = 0; indexX < 4; indexX++) {
-                int cell = tetrominos[this.type.toInt()][indexY][this.pieceRotation][indexX];
-                if (cell == 0) continue;
-                board[boardX + indexX][boardY + indexY + Constants.BUFFER_ZONE] = cell;
+                int cell = tetrominos[this.type.toInt()][indexY][this.pieceRotation][indexX]; //Set cell to one of the pixels of the piece
+                if (cell == 0) continue; //Skips the cell if it's empty
+                board[boardX + indexX][boardY + indexY + Constants.BUFFER_ZONE] = cell; //Write the cell to the board
             }
         }
-        visible = false;
+        visible = false; //Hide the piece now that its part of the board
     }
-    //returns true if move is successful
+
+    //Tries to move left and returns true if successful
     public boolean tryLeft(int[][] board){
         if(isOutOfBounds(this.boardX - 1, this.boardY)) return false;
         if(isOverlapped(this.boardX - 1, this.boardY, board)) return false;
@@ -209,8 +213,8 @@ public class Tetromino {
         updatePixelCoords();
         return true;
     }
-    
-    //returns true if move is successful
+
+    //Tries to move right and returns true if successful
     public boolean tryRight(int[][] board){
         if(isOutOfBounds(this.boardX + 1, this.boardY)) return false;
         if(isOverlapped(this.boardX + 1, this.boardY, board)) return false;
@@ -218,27 +222,25 @@ public class Tetromino {
         updatePixelCoords();
         return true;
     }
-
+    //Tries to rotate clockwise and returns true if successful
     public boolean tryRotatingCW(int[][] board){
         return tryRotation(false,board);
     }
 
+    //Tries to rotate counter-clockwise and returns true if successful
     public boolean tryRotatingCCW(int[][] board){
         return tryRotation(true,board);
     }
 
-
-
-
-
-
-    //returns true if move is successful
+    //Tries to rotate and returns true if successful
     public boolean tryRotation(boolean isCCW, int[][] board){
         //O pieces can't be rotated and thus can't move rotationally
         if(this.type.equals(TetrominoType.O)) return false;
-        //If the desired rotation would exceed 3 it finds the next rotation which would be 0
+        //If the desired rotation would exceed 3 or be below 0 it finds the next rotation which would be 0
         int desiredRotation = (pieceRotation + (isCCW ? -1 : 1) + 4) % 4;
 
+        //Finds the test set associated with the rotation
+        //Rotation change is converted into a String representation used to set the test set
         int[][] currentTestSet = switch (pieceRotation + ">>" + desiredRotation) {
             case "0>>1" -> kickTests[0];
             case "1>>0" -> kickTests[1];
@@ -251,96 +253,112 @@ public class Tetromino {
             default -> null;
         };
 
-        //Rotation change is converted into a String representation used to set the test set
 
-        //if a test case fails, it will continue testing until it runs out of cases, no changes are made
-        //if a test case succeeds it will set the pieceRotation to the desiredRotation and apply xy offsets
 
+        //If a test case fails, it will continue testing until it runs out of cases, no changes are made
+        //If a test case succeeds it will set the pieceRotation to the desiredRotation and apply xy offsets
         for (int[] currentTest : currentTestSet){
+
+            //Sets the offsets of the test
             int xOffset = currentTest[0];
             int yOffset = currentTest[1];
-            
+
+            //If the test causes the piece to hit another piece or the wall, the test fails
             if(isOutOfBounds(this.boardX + xOffset, this.boardY - yOffset, desiredRotation)) continue;
             if(isOverlapped(this.boardX + xOffset, this.boardY - yOffset, desiredRotation, board)) continue;
-            
-            this.pieceRotation = desiredRotation;
+
+            //If the test was successful then update the rotation and position
+            this.pieceRotation = desiredRotation; //Update rotation
+            //Update board relative location
             this.boardX += xOffset;
             this.boardY -= yOffset;
-            updatePixelCoords();
-            return true;
+            updatePixelCoords(); //Sets pixel relative location based on its board relative location
+            return true; //Return true to signal that the rotation was successful
         }
-        
-        //returns false if all test cases fail
-        return false;
+
+        return false; //Returns false if all test cases fail to signal a rotation did not occur
     }
     
-    //returns true if move is successful
+    //Tries to drop and returns true if successful
     public boolean tryDrop(int[][] board){
+        //If  dropping causes the piece to hit another piece or the wall, the test fails
         if(isOutOfBounds(this.boardX, this.boardY + 1)) return false;
         if(isOverlapped(this.boardX, this.boardY + 1, board)) return false;
-        this.boardY++;
-        updatePixelCoords();
-        return true;
+        this.boardY++; //If it passes, the piece is dropped by 1
+        updatePixelCoords(); //Sets pixel relative location based on its board relative location
+        return true; //Return true to signal that the drop was successful
     }
-    
+
+    //Hard drops and returns the number of lines the piece dropped
     public int hardDrop(int[][] board){
-        int lines = 0;
-        while (tryDrop(board)) lines++;
-        return lines;
+        int lines = 0; //Initializes the line counter to 0
+        while (tryDrop(board)) lines++; //Keeps dropping as long as it returns true and increments the line counter
+        return lines; //Returns the number of lines the piece dropped
     }
-    
+
+    //Sets whether the current piece's coordinates should be relative to the board or to pixels
     public void setBoardRelative(boolean boardRelative) {
-        this.boardRelative = boardRelative;
-        pieceRotation = 0;
+        this.boardRelative = boardRelative; //Sets the current piece's coordinate mode to the one passed into the method
+        pieceRotation = 0; //Resets the pieces rotation
     }
-    
+
+    //Checks whether the piece would be overlapped with an occupied cell of the board
     private boolean isOverlapped(int x, int y, int rotation, int[][] board) {
+        //Index through the y-axis of the tetromino
         for (int indexY = 0; indexY < 4; indexY++) {
+            //Index through the x-axis of the tetromino
             for (int indexX = 0; indexX < 4; indexX++) {
-                //ignores tile if no mino occupies it
-                if (tetrominos[this.type.toInt()][indexY][rotation][indexX] == 0) continue; 
-                
-                //if a mino exists, return true if it is touching another mino on the board
-                if (board[x + indexX][y + indexY + Constants.BUFFER_ZONE] != 0) return true;
+                if (tetrominos[this.type.toInt()][indexY][rotation][indexX] == 0) continue; //Ignores cell if its empty
+                if (board[x + indexX][y + indexY + Constants.BUFFER_ZONE] != 0) return true; //If a cell is occupied, return true if it is touching another occupied cell on the board
             }
         }
-        //return false if all minos pass the test
-        return false;
+        return false; //Return false if every cell passes the test
     }
-    
+
+    //Checks whether the piece would be overlapped based on its current rotation
     public boolean isOverlapped(int x, int y, int[][] board) {
         return isOverlapped(x, y, this.pieceRotation, board);
     }
+
+    //Checks whether the piece would be overlapped based on its current rotation and position
     public boolean isOverlapped(int[][] board) {
         return isOverlapped(this.boardX, this.boardY, this.pieceRotation, board);
     }
+
+    //Checks whether the piece would be outside the board
     public boolean isOutOfBounds(int x, int y, int rotation) {
+        //Index through the y-axis of the tetromino
         for (int indexY = 0; indexY < 4; indexY++) {
+            //Index through the x-axis of the tetromino
             for (int indexX = 0; indexX < 4; indexX++) {
-                //ignores tile if no mino occupies it
-                if (tetrominos[this.type.toInt()][indexY][rotation][indexX] == 0) continue; 
+                if (tetrominos[this.type.toInt()][indexY][rotation][indexX] == 0) continue; //Ignores cell if its empty
                 
-                //if a mino exists, return true if it is outside the left right or bottom bounds
+                //If the cell is occupied, return true if it is outside the left, right, or bottom bounds
                 if (x + indexX < 0 || 
                     x + indexX > Constants.BOARD_COLS - 1 || 
                     y + indexY + Constants.BUFFER_ZONE > Constants.TOTAL_BOARD_ROWS - 1) return true;
             }
         }
-        //return false if all minos pass the test
-        return false;
+        return false; //Return false if every cell passes the test
     }
-    
+
+    //Checks whether the piece would be outside the board based on its current rotation
     public boolean isOutOfBounds(int x, int y) {
         return isOutOfBounds(x, y, this.pieceRotation);
     }
 
+    //Draws the current teromino
     public void draw(Graphics g) {
-        if (!visible) return;
+        if (!visible) return; //Skips if the tetromino shouldn't be shown
+        //Checks if center offsets should be used
         int xOffset = boardRelative ? 0 : centerOffsets[0];
         int yOffset = boardRelative ? 0 : centerOffsets[1];
+        //Index through the y-axis of the tetromino
         for (int indexY = 0; indexY < 4; indexY++) {
+            //Index through the x-axis of the tetromino
             for (int indexX = 0; indexX < 4; indexX++) {
-                if (tetrominos[this.type.toInt()][indexY][pieceRotation][indexX] == 0) continue;
+                if (tetrominos[this.type.toInt()][indexY][pieceRotation][indexX] == 0) continue; //Ignores cell if its empty
+                //Draw the cell at the current location
                 Draw.square(indexX * Constants.CELL_SIZE + pixelX - xOffset,
                             indexY * Constants.CELL_SIZE + pixelY - yOffset,
                             tetrominos[this.type.toInt()][indexY][this.pieceRotation][indexX], 
@@ -349,24 +367,29 @@ public class Tetromino {
         }
     }
 
+    //Draws the ghost of the current teromino that rests above the lowest occupied cell
     public void drawGhost(int[][] board, Graphics g) {
-        if (!visible) return;
-        int lowestY = Constants.TOTAL_BOARD_ROWS;
+        if (!visible) return; //Skips if the tetromino shouldn't be shown
+        int lowestY = Constants.TOTAL_BOARD_ROWS; //Initializes the lowest y position to board height
+        //Increments downward until it touches a piece
         for(int i = 0; i < Constants.BOARD_ROWS - this.boardY; i++) {
+            //Fist checks whether the piece would be out of bounds, once it is it sets the lowest y
             if(isOutOfBounds(this.boardX, this.boardY + i, this.pieceRotation)) {
-                lowestY = this.boardY + i - 1;
-                break;
+                lowestY = this.boardY + i - 1; //Sets the lowest y
+                break; //Breaks out of the for loop
             }
-            
+            //Now checks whether the piece would be overlapped, once it is it sets the lowest y
             if(isOverlapped(this.boardX, this.boardY + i, this.pieceRotation, board)) {
-                lowestY = this.boardY + i - 1;
-                break;
+                lowestY = this.boardY + i - 1; //Sets the lowest y
+                break; //Breaks out of the for loop
             }
         }
-        
+        //Index through the y-axis of the tetromino
         for (int indexY = 0; indexY < 4; indexY++) {
+            //Index through the x-axis of the tetromino
             for (int indexX = 0; indexX < 4; indexX++) {
-                if (tetrominos[this.type.toInt()][indexY][pieceRotation][indexX] == 0) continue;
+                if (tetrominos[this.type.toInt()][indexY][pieceRotation][indexX] == 0) continue; //Ignores cell if its empty
+                //Draw the ghost cell at the current location
                 Draw.ghostSquare(indexX * Constants.CELL_SIZE + pixelX,
                             (indexY + lowestY) * Constants.CELL_SIZE,
                             tetrominos[this.type.toInt()][indexY][this.pieceRotation][indexX], 
