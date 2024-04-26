@@ -119,7 +119,7 @@ public class MatrixPanel extends JPanel {
     //Override the paint component method inherited from JPanel in order to draw board and tetrominos
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g); //Run the inherited paintComponent code
+        super.paintComponent(g); //Runs code inherited from the JPanel class required to render the panel
         this.drawBoard(g); //Draw the current board state
         if (tetromino == null) return; //If the tetromino does not exist yet, stop drawing
         tetromino.drawGhost(board, g); //Draw the ghost piece

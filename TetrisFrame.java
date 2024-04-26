@@ -4,11 +4,10 @@ import java.awt.event.*;
 import java.util.HashMap;
 
 public class TetrisFrame extends JFrame {
-    private GamePanel gamePanel; //Declare the gamePanel
+    private GamePanel gamePanel; //Declare the gamePanel that stores the entire game
 
-    private Timer timer; //Declare to timer
+    private Timer timer; //Declare to timer that periodically runs the program
 
-    //TetrisFrame constructor
     public TetrisFrame() {
         //Set up the frame properties
         setTitle("Tetris"); //Title of the frame

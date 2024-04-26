@@ -17,16 +17,15 @@ public class GamePanel extends JPanel {
         GameStates(){}
     }
 
-    private GameStates gameState; //Declare the gameStates
-    final private MatrixPanel matrixPanel; //Declare the matrixPanel
-    final private PiecePanel piecePanel; //Declare the piecePanel
-    private boolean hasSwap; //Declare the hasSwap variable
+    private GameStates gameState; //Declare the gameStates to store the current state of the game
+    final private MatrixPanel matrixPanel; //Declare the matrixPanel to store the board
+    final private PiecePanel piecePanel; //Declare the piecePanel to store the score, hold, and queue panels
+    private boolean hasSwap; //Declare a boolean to store whether the piece has or should be swapped
 
-    private int score; //Declare the score variable
-    private int lines; //Declare the lines variable
-    private int level; //Declare the level variable
+    private int score; //Declare an int to store the score
+    private int lines; //Declare an int to store the lines cleared
+    private int level; //Declare an int to store the current level
 
-    //GamePanel constructor
     public GamePanel() {
 
         this.gameState = GameStates.GENERATION_PHASE; //Sets the initial game state to the first phase, GENERATION_PHASE
@@ -34,12 +33,10 @@ public class GamePanel extends JPanel {
         matrixPanel = new MatrixPanel(); //Create the MatrixPanel object
         piecePanel = new PiecePanel(); //Create the PiecePanel object
 
-        //Set up the panel properties
         setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10, Constants.PRIMARY_COLOR)); //Add a border around the frame
         setBackground(Constants.PRIMARY_COLOR); //Set the background color of the panel
         setLayout(new BorderLayout(10, 10)); //Sets the edge offset of member panels to properly space them
 
-        // Add the matrixPanel and piecePanel to the panel
         add(matrixPanel); //Adds the matrixPanel object to the center of the parent panel
         add(piecePanel, BorderLayout.EAST); //Adds the piecePanel object to the right of the parent panel
 
