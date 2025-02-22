@@ -1,65 +1,25 @@
-# Tetris Game
+# Tetris
 
-This project is a Tetris game implemented in Java. It includes the core game mechanics such as tetromino movement, rotation, line clearing, and game over detection.
+A custom-built Tetris game using **Java Swing** for rendering and game logic. This project closely follows modern Tetris mechanics, implementing precise timing for piece movement, locking, and line clearing to create an authentic gameplay experience.
 
 ## Features
+- **Smooth Piece Movement**: Supports auto-shift, soft drops, and hard drops.
+- **Ghost Piece**: Displays where the current tetromino will land.
+- **Lock Delay & Reset System**: Allows brief movement after a piece lands.
+- **Randomized Piece Bag**: Ensures pieces do not occur too frequently in a row
+- **Row Identification & Clearing**: Highlights full rows before clearing them.
 
-- Tetromino movement (left, right, down)
-- Tetromino rotation (clockwise and counter-clockwise)
-- Line clearing
-- Game over detection
-- Ghost piece display
-- Soft and hard drop
+## Technologies Used
+- Java (Swing for UI rendering)
+- Object-Oriented Programming principles
+- Custom game loop and timing logic
 
-## Requirements
-
-- Java Development Kit (JDK) 11 or higher
-- IntelliJ IDEA 2024.1.6 or any other Java IDE
-
-## Getting Started
-
-### Installation
-
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/Xander228/tetris-game.git
-    cd tetris-game
-    ```
-
-2. Open the project in IntelliJ IDEA:
-    - Open IntelliJ IDEA.
-    - Click on `File` > `Open...`.
-    - Select the `tetris-game` directory.
-
-### Running the Game
-
-1. Locate the `Main.java` file in the `src` directory.
-2. Right-click on `Main.java` and select `Run 'Main.main()'`.
-
-### Controls
-
-- **Left Arrow**: Move tetromino left
-- **Right Arrow**: Move tetromino right
-- **Up Arrow**: Rotate tetromino clockwise
-- **Control**: Rotate tetromino counter-clockwise
+## How to Play
+- **Arrow Keys**: Move pieces left or right
 - **Down Arrow**: Soft drop
+- **Up Arrow**: Rotate clockwise
+- **Shift**: Hold Piece
+- **Ctrl**: Rotate counterclockwise
 - **Space**: Hard drop
 
-## Project Structure
 
-- `MatrixPanel.java`: Handles the game board and tetromino locking, row identification, and clearing.
-- `Tetromino.java`: Represents the tetromino pieces, their movements, and rotations.
-- `Constants.java`: Contains constant values used throughout the game.
-- `Draw.java`: Handles the drawing of the game elements.
-
-## Contributing
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Commit your changes (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Create a new Pull Request.
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
